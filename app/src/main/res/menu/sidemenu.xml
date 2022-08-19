@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Home">
+            <menu>
+                <item android:id="@+id/home"
+                    android:icon="@drawable/ic_baseline_home_24"
+                    android:title="Home"/>
+
+
+            </menu>
+        </item>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="User-Related">
+            <menu>
+                <item android:id="@+id/userActivity"
+                    android:icon="@drawable/ic_baseline_man_24"
+                    android:title="User Activity"/>
+
+                <item android:id="@+id/feedback"
+                    android:icon="@drawable/ic_baseline_feedback_24"
+                    android:title="Feedback"/>
+
+                <item android:id="@+id/missingbank"
+                    android:icon="@drawable/ic_baseline_miscellaneous_services_24"
+                    android:title="Missing Bank Suggestions"/>
+            </menu>
+        </item>
+
+
+
+
+
+
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item android:title="Disclaimer and Help">
+            <menu>
+
+                <item android:id="@+id/help"
+                    android:icon="@drawable/ic_baseline_help_24"
+                    android:title="Help"/>
+
+                <item android:id="@+id/disclaimer"
+                    android:icon="@drawable/ic_baseline_disclaimer"
+                    android:title="Disclaimer"/>
+            </menu>
+        </item>
+    </group>
+
+</menu>
