@@ -4,37 +4,37 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class JsonParser {
-    private HashMap<String, String>parseJsonObject(JSONObject object){
-        HashMap<String, String> dataList= new HashMap<>();
+    // I guess , we will need to replace this hashmap with an new object since , it will be good to add more attributes to the place
+
+
+
+    private place parseJsonObject(JSONObject object){
+        place a=null;
         try {
             String name= object.getString("name");
-        String latitude=object.getJSONObject("geometry").getJSONObject("location").getString("lat");
-        String longitude=object.getJSONObject("geometry").getJSONObject("location").getString("lng");
+            String latitude=object.getJSONObject("geometry").getJSONObject("location").getString("lat");
+            String longitude=object.getJSONObject("geometry").getJSONObject("location").getString("lng");
 
-        //Storing all values in HashMap, name, place_latitude, place_long
-        dataList.put("name", name);
-        dataList.put("lat", latitude);
-        dataList.put("lng", longitude);
+            a=new place(name,latitude,longitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         //return hash map
-        return dataList;
+        return a;
 
     }
 
-    private List<HashMap<String, String>>parseJsonArray(JSONArray jsonArray){
-        List<HashMap<String, String>> dataList =new ArrayList<>();
+
+    private List<place> parseJsonArray(JSONArray jsonArray){
+        ArrayList<place> dataList =new ArrayList<>();
         for (int i=0; i<jsonArray.length(); i++) {
             try {
-                HashMap<String, String> data = parseJsonObject((JSONObject) jsonArray.get(i));
+                place data = parseJsonObject((JSONObject) jsonArray.get(i));
                 dataList.add(data);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -43,7 +43,7 @@ public class JsonParser {
         return dataList;
     }
 
-    public List<HashMap<String, String>>parseResult(JSONObject object){
+    public List<place> parseResult(JSONObject object){
         JSONArray jsonArray=null;
         try {
             jsonArray= object.getJSONArray("results");

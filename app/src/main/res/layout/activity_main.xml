@@ -1,54 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
+    tools:context=".activities.MainActivity"
     android:id="@+id/drawer"
-    tools:openDrawer="start"
-    tools:ignore="HardcodedText">
 
-    <fragment
+    tools:openDrawer="start">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/transparent">
+
+    <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    app:titleTextColor="#ffffff"
+    android:elevation="5dp"
+    android:background="@color/darkgreen"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+
+        >
+
+    </androidx.appcompat.widget.Toolbar>
+
+    </androidx.cardview.widget.CardView>
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/google_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment">
+        android:id="@+id/frame"
+        />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="the distances from the current location"
-                android:id="@+id/distances"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"/>
-
-            <com.etebarian.meowbottomnavigation.MeowBottomNavigation
-                android:id="@+id/bottombar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
-                app:mbn_backgroundBottomColor="@color/darkgreen"
-                app:mbn_defaultIconColor="@color/white"
-                app:mbn_rippleColor="@color/silver"
-                app:mbn_selectedIconColor="@color/darkgreen" />
-        </RelativeLayout>
-    </fragment>
-
+</LinearLayout>
     <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/slidewindow"
-        app:headerLayout="@layout/headerfile"
-        android:layout_gravity="start"
-        app:menu="@menu/sidemenu"/>
+     android:id="@+id/slidewindow"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    app:headerLayout="@layout/headerfile"
+    app:menu="@menu/sidemenu"/>
+
+
+
+
+
+
+
+
+
+
+
 </androidx.drawerlayout.widget.DrawerLayout>
