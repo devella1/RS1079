@@ -12,4 +12,15 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-</resources>
+    <string name="user_activity">User Activity</string>
+    <string name="home">Home</string>
+    <string name="home_sidemenu">Home</string>
+    <string name="user_related_sidemenu">User-Related</string>
+    <string name="feedback_sidemenu">Feedback</string>
+    <string name="missing_bank_suggestions_sidemenu">Missing Bank Suggestions</string>
+    <string name="disclaimer_and_help_sidemenu">Disclaimer and Help</string>
+    <string name="help_sidemenu">Help</string>
+    <string name="disclaimer_sidemenu">Disclaimer</string>
+    <string name="search_menu">Search</string>
+    <string name="language_dialogbox">Language</string>
+    <string name="settings_settings">settings</string></resources>
