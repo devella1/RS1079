@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/settings"
         android:icon="@drawable/ic_baseline_settings_24"
-        android:title="settings"
+        android:title="@string/settings_settings"
         android:visible="true"
         app:showAsAction="always"
         android:iconTint="@color/white"/>
