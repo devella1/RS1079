@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -380,6 +381,22 @@ public class mapFragment extends Fragment {
                 options.position(latLng);
                 options.title(name);
 
+                if(selected==1)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                }
+                else if(selected==2)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
+                else if(selected==3)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                }
+                else if(selected==4)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                }
 
                 map.addMarker(options);
 
@@ -387,6 +404,15 @@ public class mapFragment extends Fragment {
 
 
             }
+
+            LatLng latLng= new LatLng(currentLat, currentLong);
+
+            MarkerOptions options= new MarkerOptions();
+            options.position(latLng);
+            options.title("Current Position");
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            map.addMarker(options);
+
             t.setText(String.valueOf(st));
             LatLng currLocation=new LatLng(currentLat,currentLong);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
