@@ -29,6 +29,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java', 'src/main/java/api', 'src/main/java/com.example.nearby_feature/api'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -56,6 +63,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.5'
 
     implementation 'com.google.firebase:firebase-common-ktx:20.1.1'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+
 
 
 }

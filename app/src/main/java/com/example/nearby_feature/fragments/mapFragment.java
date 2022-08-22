@@ -113,7 +113,7 @@ public class mapFragment extends Fragment {
                         selected=bank;
                         break;
                     case csc:
-                        name="hospital"; // since the current code has only the search feature for the hospital , i am setting the remaining options to the name shown
+                        name="hospital";
                         selected=atm;
                         break;
                     case post:
@@ -271,7 +271,7 @@ public class mapFragment extends Fragment {
                             map =googleMap;
                             LatLng currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-                            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.blue).fillColor(R.color.blue).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
+                            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
                             Circle circle=map.addCircle(circly);
 
                         }
@@ -416,7 +416,7 @@ public class mapFragment extends Fragment {
             t.setText(String.valueOf(st));
             LatLng currLocation=new LatLng(currentLat,currentLong);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.teal_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
+            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
         }
     }
@@ -438,7 +438,9 @@ public class mapFragment extends Fragment {
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-        return  (AVERAGE_RADIUS_OF_EARTH_KM * c);
+         double dist=  (AVERAGE_RADIUS_OF_EARTH_KM * c);
+         dist=(double)Math.round(dist*1000d)/1000d;
+         return dist;
     }
 
 

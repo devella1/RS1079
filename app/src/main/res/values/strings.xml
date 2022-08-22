@@ -5,6 +5,8 @@
     <string name="atm">ATM</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
+    <string name="buffer">Buffer Distance</string>
+    <string name="language">Language</string>
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
