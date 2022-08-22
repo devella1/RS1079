@@ -4,6 +4,7 @@ package com.example.nearby_feature.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.example.nearby_feature.place;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,6 +36,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -52,6 +56,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -73,7 +78,7 @@ public class mapFragment extends Fragment {
     private TextView tv1;
     private TextView tv2;
 
-    private String placeTypeList[] = {"atm", "bank", "hospital"};
+    private String placeTypeList[] = {"atm", "bank", "post_office"};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -293,6 +298,7 @@ public class mapFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 getCurrentLocation();
+
             }
         }
     }
@@ -367,6 +373,7 @@ public class mapFragment extends Fragment {
             map.clear();
             StringBuilder st=new StringBuilder();
             TextView t=view.findViewById(R.id.distances);
+            ArrayList<MarkerOptions> markers =new ArrayList<>();
             for(int i=0; i<arr.size(); i++)
             {
                 place p= arr.get(i);
@@ -399,12 +406,11 @@ public class mapFragment extends Fragment {
                 }
 
                 map.addMarker(options);
-
-
+                markers.add(options);
 
 
             }
-
+            //Current Position of user
             LatLng latLng= new LatLng(currentLat, currentLong);
 
             MarkerOptions options= new MarkerOptions();
@@ -412,16 +418,40 @@ public class mapFragment extends Fragment {
             options.title("Current Position");
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             map.addMarker(options);
+            markers.add(options);
+
+            //setting bounds to automate zoom level for presenting all markers on visible screen
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (MarkerOptions marker : markers) {
+                builder.include(marker.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+
+            int padding=0;
+
+
+            map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+                @Override
+                public void onMapLongClick(LatLng point) {
+                    MarkerOptions options = new MarkerOptions();
+                    options.position(point).title("Custom added");
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+                    map.addMarker(options);
+                    }
+            });
+
+
 
             t.setText(String.valueOf(st));
             LatLng currLocation=new LatLng(currentLat,currentLong);
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
+//            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            map.animateCamera(cu);
             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
         }
     }
-
-
 
 
 
@@ -442,13 +472,4 @@ public class mapFragment extends Fragment {
          dist=(double)Math.round(dist*1000d)/1000d;
          return dist;
     }
-
-
-
-
-
-
-
-
-
 }
