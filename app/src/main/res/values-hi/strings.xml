@@ -1,0 +1,33 @@
+
+
+
+
+
+<resources>
+    <string name="app_name">एप्लिकेशन का नाम</string>
+    <string name="google_map_key"> गूगल मानचित्र कुंजी</string>
+    <string name="atm">एटीएम</string>
+    <string name="nav_open">एनएवी ओपन</string>
+    <string name="nav_close">नौसेना बंद</string>
+
+    <string-array name="languagelist">
+        <item name="hindi">HINDI</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">MARATHI</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">हैलो खाली टुकड़ा</string>
+    <string name="user_activity">उपयोगकर्ता गतिविधि</string>
+    <string name="home">होम </string>
+    <string name="home_sidemenu">होम </string>
+    <string name="user_related_sidemenu">उपयोगकर्ता संबंधित</string>
+    <string name="feedback_sidemenu">Feedback</string>
+    <string name="missing_bank_suggestions_sidemenu">लापता बैंक सुझाव</string>
+    <string name="disclaimer_and_help_sidemenu">अस्वीकरण और सहायता</string>
+    <string name="help_sidemenu">मदद</string>
+    <string name="disclaimer_sidemenu">अस्वीकरण</string>
+    <string name="search_menu">तलाश</string>
+    <string name="language_dialogbox">भाषा</string>
+    <string name="settings_settings">सेटिंग्स</string>
+
+</resources>

@@ -18,6 +18,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.fragments.dialogFragment;
 import com.example.nearby_feature.fragments.feedback;
 import com.example.nearby_feature.fragments.mapFragment;
 import com.example.nearby_feature.fragments.userActivity;
@@ -156,7 +157,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                dialog.show();
+                showDialog();
+
                 return true;
             default:
                 return true;
@@ -164,5 +166,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void showDialog(){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        dialogFragment a=new dialogFragment();
+        a.show(fragmentManager,"Dialog Box");
     }
 }

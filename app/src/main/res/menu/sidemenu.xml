@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:title="Home">
+        <item android:title="@string/home">
             <menu>
                 <item android:id="@+id/home"
                     android:icon="@drawable/ic_baseline_home_24"
-                    android:title="Home"/>
+                    android:title="@string/home_sidemenu"/>
 
 
             </menu>
@@ -14,19 +14,19 @@
     </group>
 
     <group android:checkableBehavior="single">
-        <item android:title="User-Related">
+        <item android:title="@string/user_related_sidemenu">
             <menu>
                 <item android:id="@+id/userActivity"
                     android:icon="@drawable/ic_baseline_man_24"
-                    android:title="User Activity"/>
+                    android:title="@string/user_activity"/>
 
                 <item android:id="@+id/feedback"
                     android:icon="@drawable/ic_baseline_feedback_24"
-                    android:title="Feedback"/>
+                    android:title="@string/feedback_sidemenu"/>
 
                 <item android:id="@+id/missingbank"
                     android:icon="@drawable/ic_baseline_miscellaneous_services_24"
-                    android:title="Missing Bank Suggestions"/>
+                    android:title="@string/missing_bank_suggestions_sidemenu"/>
             </menu>
         </item>
 
@@ -38,16 +38,16 @@
     </group>
 
     <group android:checkableBehavior="single">
-        <item android:title="Disclaimer and Help">
+        <item android:title="@string/disclaimer_and_help_sidemenu">
             <menu>
 
                 <item android:id="@+id/help"
                     android:icon="@drawable/ic_baseline_help_24"
-                    android:title="Help"/>
+                    android:title="@string/help_sidemenu"/>
 
                 <item android:id="@+id/disclaimer"
                     android:icon="@drawable/ic_baseline_disclaimer"
-                    android:title="Disclaimer"/>
+                    android:title="@string/disclaimer_sidemenu"/>
             </menu>
         </item>
     </group>
