@@ -8,35 +8,30 @@
     android:orientation="vertical"
     android:padding="50dp">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_bankname"
-        android:layout_width="match_parent"
+    <EditText
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Bank Name"
+        android:id="@+id/et_name"
+        android:hint="Name"
         app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+        />
 
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/et_name"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:hint="Name"-->
+<!--        app:endIconMode="clear_text">-->
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_ifsccode"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="IFSC CODE"
-        app:endIconMode="clear_text"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            />-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+
 
 
 
@@ -44,43 +39,69 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/et_description"
-        android:hint="Description of the bank"
-        android:gravity="center"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/et_bankadress"
-        android:hint="Bank Adress"
-        android:gravity="center"/>
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/et_pin"
-        android:hint="PIN CODE"
+        android:hint="Description"
         android:gravity="center"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_choseMap"
+        android:text="Choose on Map"/>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_lat"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/et_lon"/>
+
+
     <TextView
-        android:id="@+id/atm"
+        android:id="@+id/select"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ATM Availbilty" />
+        android:text="Select" />
+
 
     <RadioGroup
         android:layout_width="310dp"
         android:layout_height="152dp">
 
         <RadioButton
-            android:id="@+id/radioButtonYes"
+            android:id="@+id/radioButtonAtm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Yes" />
+            android:text="Atm" />
 
         <RadioButton
-            android:id="@+id/radioButtonNo"
+            android:id="@+id/radioButtonBank"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No" />
+            android:text="Bank" />
+
+        <RadioButton
+            android:id="@+id/radioButtonBnkMitra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bank Mitra" />
+
+        <RadioButton
+            android:id="@+id/radioButtonPostOffice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Post Office" />
+
+        <RadioButton
+            android:id="@+id/radioButtonCsc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CSC" />
+
     </RadioGroup>
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
