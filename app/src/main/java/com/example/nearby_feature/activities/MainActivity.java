@@ -19,6 +19,7 @@ import com.example.nearby_feature.R;
 import com.example.nearby_feature.fragments.dialogFragment;
 import com.example.nearby_feature.fragments.feedback;
 import com.example.nearby_feature.fragments.mapFragment;
+import com.example.nearby_feature.fragments.placeDetail;
 import com.example.nearby_feature.fragments.userActivity;
 import com.google.android.material.navigation.NavigationView;
 
@@ -73,9 +74,16 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
-                    default:
+                    case R.id.missingbank:
+                        placeDetail a=new placeDetail();
                         getSupportFragmentManager()
-                                .beginTransaction().replace(R.id.frame,fragment)
+                                .beginTransaction().replace(R.id.frame,a)
+                                .commit();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                    default:
+                        placeDetail a1=new placeDetail();
+                        getSupportFragmentManager()
+                                .beginTransaction().replace(R.id.frame,a1)
                                 .commit();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
