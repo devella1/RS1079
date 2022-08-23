@@ -21,8 +21,10 @@ public class splashScreen extends AppCompatActivity {
         //getSupportActionBar().hide();
 
         Animation animation= AnimationUtils.loadAnimation(getApplicationContext(),R.anim.zoomout);
+        Animation animation1=AnimationUtils.loadAnimation(getApplicationContext(),R.anim.blinkanimation);
         CardView splashcard=findViewById(R.id.splashcard);
         splashcard.startAnimation(animation);
+
 
         Thread thread =new Thread(){
             @Override
