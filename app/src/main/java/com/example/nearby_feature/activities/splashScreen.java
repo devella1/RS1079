@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.example.nearby_feature.*;
+import com.example.nearby_feature.firebase.FireStoreClass;
 
 public class splashScreen extends AppCompatActivity {
 
@@ -37,9 +38,22 @@ public class splashScreen extends AppCompatActivity {
 
                 }
                 finally{
-                    Intent i=new Intent(splashScreen.this,MainActivity.class);
+
+                    String curUserId = FireStoreClass.getCurrentUserID();
+
+                    Intent i;
+
+                    if(curUserId!=null){
+
+                        i = new Intent(splashScreen.this, MainActivity.class);
+                    }
+                    else{
+                        i = new Intent(splashScreen.this, SigninActivity.class);
+                    }
+
                     startActivity(i);
                     finish();
+
 
                 }
                 super.run();
