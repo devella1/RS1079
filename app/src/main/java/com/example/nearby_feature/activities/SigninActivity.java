@@ -32,11 +32,26 @@ public class SigninActivity extends BaseActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Button btn_sign_in = findViewById(R.id.btn_sign_in);
+        Button btn_sign_up1 = findViewById(R.id.btn_sign_up1);
 
         btn_sign_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signinRegisteredUser();
+            }
+        });
+
+
+        btn_sign_up1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Toast.makeText(SigninActivity.this, "Clicked sign up",
+                        //Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(SigninActivity.this,SignupActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
@@ -69,12 +84,12 @@ public class SigninActivity extends BaseActivity {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(SigninActivity.this, "Added going to mail ver",
+                            Toast.makeText(SigninActivity.this, "Verification done",
                                     Toast.LENGTH_SHORT).show();
                             sendEmailVerification();
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(SigninActivity.this, "Authentication failed.",
+                            Toast.makeText(SigninActivity.this, "Authentication failed. Please signup first",
                                     Toast.LENGTH_SHORT).show();
 
                         }

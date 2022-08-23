@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 
 import com.example.nearby_feature.R;
+import com.google.android.material.snackbar.Snackbar;
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -38,5 +40,18 @@ public class BaseActivity extends AppCompatActivity {
     public void hideProgressDialog() {
         mProgressDialog.dismiss();
     }
+
+//    public void  showErrorSnackBar(String message) {
+//        val snackBar =
+//                Snackbar.make(findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+//        val snackBarView = snackBar.view
+//        snackBarView.setBackgroundColor(
+//                ContextCompat.getColor(
+//                        BaseActivity.this,
+//        R.color.snackbar_error_color
+//            )
+//        )
+//        snackBar.show()
+//    }
 
 }

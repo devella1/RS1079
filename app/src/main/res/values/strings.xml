@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">nearby_feature</string>
-    <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
+    <string name="google_map_key">Api Key</string>
+
     //AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM
+
     <string name="atm">ATM</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>

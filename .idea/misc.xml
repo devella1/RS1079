@@ -10,25 +10,20 @@
         <entry key="..\:/RS1079/app/src/main/res/layout/activity_base.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/activity_disclaimer.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_map_missing_bank.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/activity_missing_banks.xml" value="0.291970802919708" />
         <entry key="..\:/RS1079/app/src/main/res/layout/activity_signin.xml" value="0.10989583333333333" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_signup.xml" value="0.1" />
         <entry key="..\:/RS1079/app/src/main/res/layout/appbar.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/dialog_progress.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/dialogbox.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/fragment_feedback.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/fragment_map.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/fragment_missing_banks_map.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/fragment_user_activity.xml" value="0.25" />
         <entry key="..\:/RS1079/app/src/main/res/layout/headerfile.xml" value="0.25" />
-
-
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/activity_main.xml" value="0.13323201621073963" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/appbar.xml" value="0.12604166666666666" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/dialog_progress.xml" value="0.12604166666666666" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/dialogbox.xml" value="0.12604166666666666" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/headerfile.xml" value="0.12604166666666666" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/menu/menu.xml" value="0.1" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/menu/settings.xml" value="0.1" />
-        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/menu/sidemenu.xml" value="0.1" />
+        <entry key="..\:/RS1079/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/menu/sidemenu.xml" value="0.25" />
 
       </map>
     </option>

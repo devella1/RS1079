@@ -1,5 +1,7 @@
 package com.example.nearby_feature.firebase;
 
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 
 import com.example.nearby_feature.activities.Missing_banks;
@@ -14,15 +16,14 @@ public class FireStoreClass {
     private FirebaseFirestore db;
 
 
-    public static void addMissingBank(String bankName, String ifsc, String descripton, String address, String pincode, Boolean isAtm, Missing_banks activity) {
+    public static void addMissingBank(String Name,  String descripton, String latitude, String longitude, String type, Missing_banks activity) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> missingBank = new HashMap<>();
-        missingBank.put("Name", bankName);
-        missingBank.put("IFSC", ifsc);
+        missingBank.put("Name", Name);
         missingBank.put("Desc", descripton);
-        missingBank.put("Addr", address);
-        missingBank.put("Pincode", pincode);
-        missingBank.put("isAtm", isAtm);
+        missingBank.put("lat", latitude);
+        missingBank.put("lon", longitude);
+        missingBank.put("type", type);
 
 
 
@@ -33,6 +34,7 @@ public class FireStoreClass {
                 ).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
 
                     }
                 });
