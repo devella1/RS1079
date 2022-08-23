@@ -77,8 +77,10 @@ public class mapFragment extends Fragment {
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
-
-    private String placeTypeList[] = {"atm", "bank", "post_office"};
+    
+    private LatLng currLocation;
+    private String placeTypeList[] = {"atm", "bank", "hospital"};
+    private String deviceLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
