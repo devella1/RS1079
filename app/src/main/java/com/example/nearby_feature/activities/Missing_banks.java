@@ -51,6 +51,7 @@ public class Missing_banks extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Missing_banks.this,MapMissingBank.class);
                 startActivity(intent);
+                finish();
             }
         });
 

@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.missingbank:
                         Intent intent = new Intent(MainActivity.this,Missing_banks.class);
                         startActivity(intent);
+                        drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     default:
                         getSupportFragmentManager()

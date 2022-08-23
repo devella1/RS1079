@@ -26,7 +26,6 @@ public class MapMissingBank extends AppCompatActivity {
         //Open fragment
         getSupportFragmentManager()
                 .beginTransaction().replace(R.id.frame_layout,fragment)
-                .addToBackStack(null)
                 .commit();
 
         btn_ok = findViewById(R.id.btn_ok);
