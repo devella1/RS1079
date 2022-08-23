@@ -33,26 +33,34 @@ import retrofit2.Response;
 
 public class mainActivityModel extends AppCompatActivity {
     String apikey="AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM";
-    public void getData(LatLng curr, String type, int radius ,Context context, GoogleMap map,String language){
+    public boolean getData(LatLng curr, String type, int radius ,Context context, GoogleMap map,String language){
         apiService request= serviceBuilder.buildService();
-        Call<String> call =request.getPlace("${"+curr.latitude+"},${"+curr.longitude+"}",type,radius,language,apikey);
+        Call<String> call =request.getPlace(curr.latitude+","+curr.longitude,type,radius,language,apikey);
+        final boolean[] parsedData = {true};
         call.enqueue(new Callback<String>() {
+            //boolean istrue=true;
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 if(response.isSuccessful()){
 
                     System.out.println(response.raw().request().url());
                     showMarker(jsonParser(response.body()),context,map,curr);
+                    return;
                 }
+                parsedData[0]=false;
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                //istrue=false;
 
+                parsedData[0] =false;
                // System.out.println(t.message);
                 //Toast.makeText(MainActivity.this,"Error in onresponse in getData ",Toast.LENGTH_SHORT).show();
             }
         });
+
+        return parsedData[0];
 
 
     }
@@ -78,7 +86,7 @@ public class mainActivityModel extends AppCompatActivity {
         for(int i=0;i<placecount;i++){
             try{
 
-                placemap=getPlace(jsonArray.getJSONObject(i));
+                placemap=getPlace((JSONObject) jsonArray.get(i));
                 placeList.add(placemap);
             }
             catch(JSONException e){

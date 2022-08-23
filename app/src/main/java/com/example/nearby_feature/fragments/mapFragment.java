@@ -112,22 +112,30 @@ public class mapFragment extends Fragment {
                     case atm:
                         name="ATM";
                         selected=atm;
-                        model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage);
+                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
+                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
+                        }
                         break;
                     case bank:
                         name="BANK";
                         selected=bank;
-                        model.getData(currLocation,"bank",1000,view.getContext(),map,deviceLanguage);
+                        if(!model.getData(currLocation,"bank",1000,view.getContext(),map,deviceLanguage)){
+                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
+                        }
                         break;
                     case csc:
                         name="hospital";
                         selected=atm;
-                        model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage);
+                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
+                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
+                        }
                         break;
                     case post:
                         name="bank";
                         selected=bank;
-                        model.getData(currLocation,"post_office",1000,view.getContext(),map,deviceLanguage);
+                        if(!model.getData(currLocation,"bank",1000,view.getContext(),map,deviceLanguage)){
+                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
+                        }
                         break;
                     case bankMitra:
                         name="bankr";

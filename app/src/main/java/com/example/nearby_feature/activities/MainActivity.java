@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                                 .commit();
                         drawerLayout.closeDrawer(GravityCompat.START);
                     default:
-                        placeDetail a1=new placeDetail();
+                        mapFragment a1=new mapFragment();
                         getSupportFragmentManager()
                                 .beginTransaction().replace(R.id.frame,a1)
                                 .commit();
