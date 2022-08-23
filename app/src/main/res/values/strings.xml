@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">nearby_feature</string>
-    <string name="google_map_key">Api Key</string>
+    <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
 
-    //AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM
+
 
     <string name="atm">ATM</string>
     <string name="nav_open">Open</string>
@@ -26,4 +26,7 @@
     <string name="disclaimer_sidemenu">Disclaimer</string>
     <string name="search_menu">Search</string>
     <string name="language_dialogbox">Language</string>
-    <string name="settings_settings">settings</string></resources>
+    <string name="settings_settings">settings</string>
+    <string name="buffer">Buffer Distance</string>
+    <string name="language">Language</string>
+</resources>
