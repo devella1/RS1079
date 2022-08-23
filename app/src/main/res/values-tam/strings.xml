@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">பயன்பாட்டின் பெயர்</string>
+    <string name="google_map_key"> பயன்பாட்டின் பெயர்</string>
+    <string name="atm">atm</string>
+    <string name="nav_open"> வழிசெலுத்தல் திறந்திருக்கும்</string>
+    <string name="nav_close">வழிசெலுத்தல் மூடியது</string>
+
+    <string-array name="languagelist">
+        <item name="hindi">HINDI</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">MARATHI</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">ஹலோ வெற்று துண்டு</string>
+    <string name="user_activity">முகப்பு</string>
+    <string name="home">முகப்பு</string>
+    <string name="home_sidemenu">முகப்பு</string>
+    <string name="user_related_sidemenu">பயனர் தொடர்பான</string>
+    <string name="feedback_sidemenu">பின்னூட்டம்</string>
+    <string name="missing_bank_suggestions_sidemenu">வங்கி பரிந்துரைகள் இல்லை</string>
+    <string name="disclaimer_and_help_sidemenu">மறுப்பு மற்றும் உதவி</string>
+    <string name="help_sidemenu">உதவி</string>
+    <string name="disclaimer_sidemenu">மறுப்பு</string>
+    <string name="search_menu">தேடல்</string>
+    <string name="language_dialogbox">மொழி</string>
+    <string name="settings_settings">அமைப்புகள்</string>
+
+</resources>

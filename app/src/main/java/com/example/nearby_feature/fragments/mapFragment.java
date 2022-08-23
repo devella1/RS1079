@@ -23,6 +23,7 @@ import androidx.fragment.app.Fragment;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
 import com.google.android.gms.common.api.Status;
@@ -32,6 +33,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -112,30 +114,24 @@ public class mapFragment extends Fragment {
                     case atm:
                         name="ATM";
                         selected=atm;
-                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
-                        }
+                        //if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
+                        //    Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
+                        //}
                         break;
                     case bank:
                         name="BANK";
                         selected=bank;
-                        if(!model.getData(currLocation,"bank",1000,view.getContext(),map,deviceLanguage)){
-                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
-                        }
+
                         break;
                     case csc:
                         name="hospital";
                         selected=atm;
-                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
-                        }
+
                         break;
                     case post:
                         name="bank";
                         selected=bank;
-                        if(!model.getData(currLocation,"bank",1000,view.getContext(),map,deviceLanguage)){
-                            Toast.makeText(getActivity(),"not able to parse data",Toast.LENGTH_SHORT);
-                        }
+
                         break;
                     case bankMitra:
                         name="bankr";
@@ -147,7 +143,7 @@ public class mapFragment extends Fragment {
 
                 }
 
-                /*
+
                 // this process will make the requests each time is not good , it must be changed
                 int i = selected-1;
                 String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
@@ -157,7 +153,7 @@ public class mapFragment extends Fragment {
                 // we can add the code for the places api over here
 
 
-                 */
+
 
 
 
@@ -317,7 +313,7 @@ public class mapFragment extends Fragment {
             }
         }
     }
-    /*
+
 
     private class PlaceTask extends AsyncTask<String, Integer, String> {
         @Override
@@ -403,6 +399,22 @@ public class mapFragment extends Fragment {
                 options.position(latLng);
                 options.title(name);
 
+                if(selected==1)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                }
+                else if(selected==2)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                }
+                else if(selected==3)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                }
+                else if(selected==4)
+                {
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                }
 
                 map.addMarker(options);
 
@@ -410,6 +422,15 @@ public class mapFragment extends Fragment {
 
 
             }
+
+            LatLng latLng= new LatLng(currentLat, currentLong);
+
+            MarkerOptions options= new MarkerOptions();
+            options.position(latLng);
+            options.title("Current Position");
+            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+            map.addMarker(options);
+
             t.setText(String.valueOf(st));
             LatLng currLocation=new LatLng(currentLat,currentLong);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
@@ -419,7 +440,7 @@ public class mapFragment extends Fragment {
     }
 
 
-*/
+
 
 
     public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
