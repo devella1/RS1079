@@ -21,6 +21,7 @@ import com.example.nearby_feature.R;
 import com.example.nearby_feature.fragments.dialogFragment;
 import com.example.nearby_feature.fragments.feedback;
 import com.example.nearby_feature.fragments.mapFragment;
+import com.example.nearby_feature.fragments.placeDetail;
 import com.example.nearby_feature.fragments.userActivity;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -82,8 +83,9 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     default:
+                        mapFragment a1=new mapFragment();
                         getSupportFragmentManager()
-                                .beginTransaction().replace(R.id.frame,fragment)
+                                .beginTransaction().replace(R.id.frame,a1)
                                 .commit();
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;

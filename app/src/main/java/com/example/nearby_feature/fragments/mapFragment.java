@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,9 @@ import androidx.fragment.app.Fragment;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.place;
+import com.example.nearby_feature.viewmodels.mainActivityModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -59,6 +62,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 
 public class mapFragment extends Fragment {
@@ -77,14 +81,16 @@ public class mapFragment extends Fragment {
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
-
-    private String placeTypeList[] = {"atm", "bank", "post_office"};
+    private LatLng currLocation;
+    private String placeTypeList[] = {"atm", "bank", "hospital"};
+    private String deviceLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Initialize view
          view=inflater.inflate(R.layout.fragment_map, container, false);
-
+         mainActivityModel model=new mainActivityModel();
+        deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
 
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
@@ -112,18 +118,24 @@ public class mapFragment extends Fragment {
                     case atm:
                         name="ATM";
                         selected=atm;
+                        //if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
+                        //    Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
+                        //}
                         break;
                     case bank:
                         name="BANK";
                         selected=bank;
+
                         break;
                     case csc:
                         name="hospital";
                         selected=atm;
+
                         break;
                     case post:
                         name="bank";
                         selected=bank;
+
                         break;
                     case bankMitra:
                         name="bankr";
@@ -135,6 +147,7 @@ public class mapFragment extends Fragment {
 
                 }
 
+
                 // this process will make the requests each time is not good , it must be changed
                 int i = selected-1;
                 String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
@@ -142,6 +155,8 @@ public class mapFragment extends Fragment {
                 new PlaceTask().execute(url);
 
                 // we can add the code for the places api over here
+
+
 
 
 
@@ -274,9 +289,9 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
-                            LatLng currLocation=new LatLng(currentLat,currentLong);
+                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-                            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
+                           CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
                             Circle circle=map.addCircle(circly);
 
                         }
@@ -289,6 +304,7 @@ public class mapFragment extends Fragment {
 
 
     // this method is only for getting current location and has no relation with the places api
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         // when you get the current location permissions , run the getCurrentLocation() command , which will animate the camera and add marker to the place
@@ -302,6 +318,7 @@ public class mapFragment extends Fragment {
             }
         }
     }
+
 
     private class PlaceTask extends AsyncTask<String, Integer, String> {
         @Override
