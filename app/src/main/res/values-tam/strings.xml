@@ -4,6 +4,8 @@
     <string name="atm">atm</string>
     <string name="nav_open"> வழிசெலுத்தல் திறந்திருக்கும்</string>
     <string name="nav_close">வழிசெலுத்தல் மூடியது</string>
+    <string name="buffer">Buffer Distance</string>
+    <string name="language">Language</string>
 
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
