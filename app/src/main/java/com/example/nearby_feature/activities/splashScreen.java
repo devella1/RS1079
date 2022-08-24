@@ -41,8 +41,7 @@ public class splashScreen extends AppCompatActivity {
 
                     Intent i;
 
-                    if(curUserId!=null){
-
+                    if(curUserId!=null && !curUserId.isEmpty()){
                         i = new Intent(splashScreen.this, MainActivity.class);
                     }
                     else{
