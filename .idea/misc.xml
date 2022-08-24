@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android_sdk/platforms/android-31/data/res/drawable/editbox_background.xml" value="0.121" />
+        <entry key="..\:/RS1079/app/src/main/res/drawable-v24/button_shape.xml" value="0.121" />
+        <entry key="..\:/RS1079/app/src/main/res/drawable-v24/ic_baseline_location_on_24.xml" value="0.121" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_about_us.xml" value="0.10989583333333333" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_base.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_disclaimer.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_map_missing_bank.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_missing_banks.xml" value="0.291970802919708" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_signin.xml" value="0.10989583333333333" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/activity_signup.xml" value="0.1" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/appbar.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/dialog_progress.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/dialogbox.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/fragment_feedback.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/fragment_map.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/fragment_missing_banks_map.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/fragment_user_activity.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/layout/headerfile.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/RS1079/app/src/main/res/menu/sidemenu.xml" value="0.25" />
+        <entry key="..\:/Users/Lenovo/OneDrive/Desktop/RS1079/app/src/main/res/layout/dialogbox.xml" value="0.27447916666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
