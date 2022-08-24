@@ -21,42 +21,63 @@
         android:layout_height="wrap_content"
         android:id="@+id/distances"
         android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        />
 
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:id="@+id/edit_text"
-        android:hint="Enter Address"
-        android:padding="16dp"
-        android:drawablePadding="16dp"
-        android:drawableLeft="@drawable/ic_baseline_location_on_24"
-        android:gravity="center_vertical"
-        android:background="@android:drawable/editbox_background"/>
-
-
-
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/tv1"
-        android:textColor="@color/purple_200"
-        android:fontFamily="monospace"
-        android:padding="12dp"
-        android:layout_marginTop="32dp"/>
+        app:cardCornerRadius="20dp"
+        android:layout_marginTop="10dp"
+        android:elevation="5dp">
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/filterByOpenNow"
+            android:id="@+id/filterByOpenNow"
+            android:background="@color/white"
+            android:padding="5dp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv2"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:padding="12dp"
-        android:layout_marginTop="16dp"/>
+
+            />
+    </androidx.cardview.widget.CardView>
+
+    <!--
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:id="@+id/edit_text"
+            android:hint="Enter Address"
+            android:padding="16dp"
+            android:drawablePadding="16dp"
+            android:drawableLeft="@drawable/ic_baseline_location_on_24"
+            android:gravity="center_vertical"
+            android:background="@android:drawable/editbox_background"/>
+
+    this is the edit text
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv1"
+            android:textColor="@color/purple_200"
+            android:fontFamily="monospace"
+            android:padding="12dp"
+            android:layout_marginTop="32dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv2"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
+
+            -->
 
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation

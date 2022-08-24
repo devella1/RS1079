@@ -31,4 +31,8 @@
 
     <string name="buffer">Buffer Distance</string>
     <string name="language">Language</string>
+
+    <string name="filterByOpenNow">Filter By Open Now</string>
+    <string name="toggleOff">Open Now</string>
+    <string name="toggleOn">Open Now Enabled</string>
 </resources>

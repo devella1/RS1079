@@ -4,7 +4,6 @@ package com.example.nearby_feature.fragments;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,11 +26,11 @@ import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.place;
+import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,8 +39,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -59,7 +57,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -81,15 +78,17 @@ public class mapFragment extends Fragment {
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
+
+    private mainActivityDataProvider provider;
     private LatLng currLocation;
-    private String placeTypeList[] = {"atm", "bank", "hospital"};
+    //private String placeTypeList[] = {"atm", "bank", "hospital"};
     private String deviceLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Initialize view
-         view=inflater.inflate(R.layout.fragment_map, container, false);
-         mainActivityModel model=new mainActivityModel();
+        view=inflater.inflate(R.layout.fragment_map, container, false);
+
         deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
 
@@ -100,10 +99,12 @@ public class mapFragment extends Fragment {
         bn.add(new MeowBottomNavigation.Model(csc, R.drawable.ic_baseline_man_24));
         bn.add(new MeowBottomNavigation.Model(bankMitra, R.drawable.ic_baseline_feedback_24));
         // Initialize map fragment
-         supportMapFragment=(SupportMapFragment)
+        supportMapFragment=(SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
 
         // Async map
+
+
 
         // Return view
 
@@ -149,17 +150,15 @@ public class mapFragment extends Fragment {
 
 
                 // this process will make the requests each time is not good , it must be changed
-                int i = selected-1;
-                String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
+                //int i = selected-1;
+                //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
 
-                new PlaceTask().execute(url);
+                //new PlaceTask().execute(url);
 
-                // we can add the code for the places api over here
-
-
-
-
-
+                mainActivityDataProvider dataProvider = new mainActivityDataProvider();
+                provider=dataProvider;
+                dataProvider.setMap(map);
+                dataProvider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
 
             }
         });
@@ -175,27 +174,21 @@ public class mapFragment extends Fragment {
                 switch(item.getId()){
                     case atm:
                         name="ATM";
-                        selected=atm;
                         break;
                     case bank:
                         name="BANK";
-                        selected=bank;
                         break;
                     case csc:
-                        name="hospital"; // since the current code has only the search feature for the hospital , i am setting the remaining options to the name shown
-                        selected=atm;
+                        name="hospital";
                         break;
                     case post:
                         name="bank";
-                        selected=bank;
                         break;
                     case bankMitra:
                         name="bankr";
-                        selected=bank;
                         break;
                     default:
                         name="atm";
-                        selected=1;
 
                 }
             }
@@ -215,16 +208,19 @@ public class mapFragment extends Fragment {
 
 
 
-        editText=view.findViewById(R.id.edit_text);
-        tv1= view.findViewById(R.id.tv1);
-        tv2=view.findViewById(R.id.tv2);
+        //editText=view.findViewById(R.id.edit_text);
+        //tv1= view.findViewById(R.id.tv1);
+        // tv2=view.findViewById(R.id.tv2);
 
         //Initialize Places
+
+
+        // ----- edit text code over here
 
         Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
 
         //Set EditText non focusable
-        editText.setFocusable(false);
+       /* editText.setFocusable(false);
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,10 +235,40 @@ public class mapFragment extends Fragment {
                 startActivityForResult(intent, 100);
             }
         });
+        */
+
+        ToggleButton toggleButton = view.findViewById(R.id.filterByOpenNow);
+
+
+
+        toggleButton.setText(getResources().getString(R.string.toggleOff));
+        toggleButton.setTextOff(getResources().getString(R.string.toggleOff));
+        toggleButton.setTextOn(getResources().getString(R.string.toggleOff));
+
+        toggleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(toggleButton.isChecked()){
+                    provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                    toggleButton.setBackgroundColor(getResources().getColor(R.color.forestgreen));
+                    toggleButton.setTextColor(getResources().getColor(R.color.white));
+                }
+                else{
+
+                    provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                    toggleButton.setBackgroundColor(getResources().getColor(R.color.white));
+                    toggleButton.setTextColor(getResources().getColor(R.color.black));
+
+                }
+            }
+        });
+
+
+
         return view;
     }
 
-
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -261,6 +287,10 @@ public class mapFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
         }
     }
+
+
+ */
+    // ------ edit text code ends over here okay
 
 
 
@@ -289,9 +319,9 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
-                             currLocation=new LatLng(currentLat,currentLong);
+                            currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-                           CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
+                            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
                             Circle circle=map.addCircle(circly);
 
                         }
@@ -314,179 +344,12 @@ public class mapFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 getCurrentLocation();
-
             }
         }
     }
 
 
-    private class PlaceTask extends AsyncTask<String, Integer, String> {
-        @Override
-        protected String doInBackground(String... strings) {
-            String data=null;
-            try {
-                data=downloadUrl(strings[0]);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return data;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            //Execcute Parser Task
-            new ParserTask().execute(s);
-
-        }
-    }
-
-
-    private String downloadUrl(String string) throws IOException {
-        // This thing can be used for both the places api and the nearby search api
-
-        URL url=new URL(string);
-        HttpURLConnection connection =(HttpURLConnection) url.openConnection();
-        connection.connect();
-        InputStream stream=connection.getInputStream();
-        BufferedReader reader= new BufferedReader(new InputStreamReader(stream));
-        StringBuilder builder =new StringBuilder();
-        String line="";
-        while((line= reader.readLine())!=null)
-        {
-            builder.append(line);
-        }
-
-        String data= builder.toString();
-        reader.close();
-
-        return data;
-    }
-
-    private class ParserTask extends AsyncTask<String, Integer, List<place>> {
-        @Override
-        // we get the get the information about the locations over here
-        protected List<place> doInBackground(String... strings) {
-
-            JsonParser jsonParser =new JsonParser();
-
-            List<place> mapList= null;
-            JSONObject object= null; // check about this
-            try {
-                object= new JSONObject(strings[0]);
-                mapList= jsonParser.parseResult(object);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return mapList;
-        }
-
-
-        // check about this
-
-
-        protected void onPostExecute(List<place> arr) {
-
-            map.clear();
-            StringBuilder st=new StringBuilder();
-            TextView t=view.findViewById(R.id.distances);
-            ArrayList<MarkerOptions> markers =new ArrayList<>();
-            for(int i=0; i<arr.size(); i++)
-            {
-                place p= arr.get(i);
-                double lat= Double.parseDouble(p.getLat());
-                double lng= Double.parseDouble(p.getLang());
-
-
-                String name= p.getName();
-                st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
-                LatLng latLng= new LatLng(lat, lng);
-                MarkerOptions options= new MarkerOptions();
-                options.position(latLng);
-                options.title(name);
-
-                if(selected==1)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                }
-                else if(selected==2)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
-                else if(selected==3)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                }
-                else if(selected==4)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                }
-
-                map.addMarker(options);
-                markers.add(options);
-
-
-            }
-            //Current Position of user
-            LatLng latLng= new LatLng(currentLat, currentLong);
-
-            MarkerOptions options= new MarkerOptions();
-            options.position(latLng);
-            options.title("Current Position");
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            map.addMarker(options);
-            markers.add(options);
-
-            //setting bounds to automate zoom level for presenting all markers on visible screen
-
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (MarkerOptions marker : markers) {
-                builder.include(marker.getPosition());
-            }
-            LatLngBounds bounds = builder.build();
-
-            int padding=0;
-
-
-            map.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-                @Override
-                public void onMapLongClick(LatLng point) {
-                    MarkerOptions options = new MarkerOptions();
-                    options.position(point).title("Custom added");
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-                    map.addMarker(options);
-                    }
-            });
 
 
 
-            t.setText(String.valueOf(st));
-            LatLng currLocation=new LatLng(currentLat,currentLong);
-//            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-            map.animateCamera(cu);
-            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
-            Circle circle=map.addCircle(circly);
-        }
-    }
-
-
-
-    public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
-    public double calculateDistanceInKilometer(double userLat, double userLng,
-                                               double venueLat, double venueLng) {
-
-        double latDistance = Math.toRadians(userLat - venueLat);
-        double lngDistance = Math.toRadians(userLng - venueLng);
-
-        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
-                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
-
-        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-         double dist=  (AVERAGE_RADIUS_OF_EARTH_KM * c);
-         dist=(double)Math.round(dist*1000d)/1000d;
-         return dist;
-    }
 }
