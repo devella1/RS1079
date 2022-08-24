@@ -9,6 +9,8 @@
     <string name="atm">एटीएम</string>
     <string name="nav_open">एनएवी ओपन</string>
     <string name="nav_close">नौसेना बंद</string>
+    <string name="buffer">Buffer Distance</string>
+    <string name="language">Language</string>
 
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>

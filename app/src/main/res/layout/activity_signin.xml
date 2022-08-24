@@ -45,8 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
-            android:layout_margin="18dp"
-            android:elevation="2px">
+            android:layout_margin="18dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,36 +54,47 @@
                 android:padding="5dp">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_signin_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="email"
+                        android:hint="@string/email"
                         android:inputType="textEmailAddress"
-                        android:textSize="12dp"/>
+                        android:textSize="16sp"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/outlinedTextField2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp">
+                    android:layout_marginTop="20dp"
+                    app:endIconMode="password_toggle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                    <androidx.appcompat.widget.AppCompatEditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_signin_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="password"
+                        android:hint="@string/password"
                         android:inputType="textPassword"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button android:id="@+id/btn_sign_in"
+
+                <Button
+                    android:id="@+id/btn_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -93,9 +103,22 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
 
-                    android:text="sign_in"
+                    android:text="Sign In"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"/>
+
+<!--                <Button android:id="@+id/btn_sign_in"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:background="@drawable/button_shape"-->
+<!--                    android:foreground="?attr/selectableItemBackground"-->
+<!--                    android:gravity="center"-->
+
+<!--                    android:text="sign_in"-->
+<!--                    android:textColor="@android:color/white"-->
+<!--                    android:textSize="18sp"/>-->
 
                 <Button android:id="@+id/btn_sign_up1"
                     android:layout_width="match_parent"
@@ -106,7 +129,7 @@
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center"
 
-                    android:text="sign_up"
+                    android:text="Sign up"
                     android:textColor="@android:color/white"
                     android:textSize="18sp"/>
 

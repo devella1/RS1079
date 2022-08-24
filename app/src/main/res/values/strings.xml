@@ -2,12 +2,10 @@
     <string name="app_name">nearby_feature</string>
     <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
 
-
-
     <string name="atm">ATM</string>
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
-
+  
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
@@ -27,6 +25,10 @@
     <string name="search_menu">Search</string>
     <string name="language_dialogbox">Language</string>
     <string name="settings_settings">settings</string>
+
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+
     <string name="buffer">Buffer Distance</string>
     <string name="language">Language</string>
 </resources>
