@@ -16,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 import android.widget.ToggleButton;
-
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
@@ -44,6 +46,10 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -64,7 +70,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+
+
+/*
+public class MapsActivityRaw extends AppCompatActivity
+implements OnMapReadyCallback {
+
+    private static final String TAG = MapsActivityRaw.class.getSimpleName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.fragment_map);
+
+        // Get the SupportMapFragment and register for the callback
+        // when the map is ready for use.
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.google_map);
+        mapFragment.getMapAsync(this);
+    }
+}
+*/
 
 public class mapFragment extends Fragment {
 
@@ -89,6 +119,8 @@ public class mapFragment extends Fragment {
     private mainActivityDataProvider provider;
     private LatLng currLocation;
     private String deviceLanguage;
+//    private static final String TAG = MapsActivityRaw.class.getSimpleName();
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -371,6 +403,7 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
+                            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.dark_style_json));
                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
                             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
