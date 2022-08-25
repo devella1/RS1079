@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
 import com.example.nearby_feature.place;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
@@ -122,6 +124,7 @@ public class mainActivityDataProvider {
 
             map.clear();
             StringBuilder st=new StringBuilder();
+            ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);
             placeList=arr;
             for(int i=0; i<arr.size(); i++)
@@ -156,9 +159,7 @@ public class mainActivityDataProvider {
                 }
 
                 map.addMarker(options);
-
-
-
+                markers.add(options);
 
             }
 
@@ -170,9 +171,23 @@ public class mainActivityDataProvider {
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             map.addMarker(options);
 
+            //setting bounds to automate zoom level for presenting all markers on visible screen
+
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (MarkerOptions marker : markers) {
+                builder.include(marker.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+
+            int padding=16;
+
+
+
 
             LatLng currLocation=new LatLng(currentLat,currentLong);
-            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
+            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+            map.animateCamera(cu);
+//            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
         }
