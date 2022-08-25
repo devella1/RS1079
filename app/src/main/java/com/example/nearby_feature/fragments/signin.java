@@ -50,50 +50,101 @@ public class signin extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_signin, container, false);
+
+        mAuth = FirebaseAuth.getInstance();
+
+        Button btn_sign_in = view.findViewById(R.id.btn_sign_in);
+        Button btn_sign_up1 = view.findViewById(R.id.btn_sign_up1);
+
+        btn_sign_in.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signinRegisteredUser();
+            }
+        });
+
+
+        btn_sign_up1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Toast.makeText(SigninActivity.this, "Clicked sign up",
+                //Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(),SignupActivity.class);
+                startActivity(intent);
+
+            }
+        });
         return view;
     }
 
 
     private void signinRegisteredUser() {
-        // [START sign_in_with_email]
+
         EditText et_signin_email = view.findViewById(R.id.et_signin_email);
         String email = et_signin_email.getText().toString();
 
         EditText et_signin_password = view.findViewById(R.id.et_signin_password);
         String password = et_signin_password.getText().toString();
 
-        if(validateSigninForm(email,password)){
-            String temp = "Please Wait";
-            //showProgressDialog(temp);
+        Toast.makeText(getActivity(), email,
+                                        Toast.LENGTH_SHORT).show();
 
-            mAuth.signInWithEmailAndPassword(email, password)
+        mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Log.d(TAG, "signInWithEmail:success");
+
 
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Toast.makeText(getActivity(), "Verification done",
                                         Toast.LENGTH_SHORT).show();
 
-                                //Intent intent = new Intent(SigninActivity.this, MainActivity.class);
-                                //hideProgressDialog();
-                                //startActivity(intent);
-                                //finish();
 
                             } else {
-                                //hideProgressDialog();
-                                Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                //Toast.makeText(SigninActivity.this, "Authentication failed",
-                                        //Toast.LENGTH_SHORT).show();
+
+                                Toast.makeText(getActivity(), "Authentication failed",
+                                        Toast.LENGTH_SHORT).show();
 
                             }
                         }
                     });
-        }
+
+
+//        if(validateSigninForm(email,password)){
+//            String temp = "Please Wait";
+            //showProgressDialog(temp);
+
+//            mAuth.signInWithEmailAndPassword(email, password)
+//                    .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<AuthResult> task) {
+//                            if (task.isSuccessful()) {
+//                                Log.d(TAG, "signInWithEmail:success");
+//
+//                                FirebaseUser user = mAuth.getCurrentUser();
+//                                Toast.makeText(getActivity(), "Verification done",
+//                                        Toast.LENGTH_SHORT).show();
+//
+////                                Intent intent = new Intent(getActivity(), MainActivity.class);
+////                                //hideProgressDialog();
+////                                startActivity(intent);
+//
+//
+//                            } else {
+//                                //hideProgressDialog();
+//                                Log.w(TAG, "signInWithEmail:failure", task.getException());
+//                                //Toast.makeText(SigninActivity.this, "Authentication failed",
+//                                        //Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }
+//                    });
+//        }
     }
 
 

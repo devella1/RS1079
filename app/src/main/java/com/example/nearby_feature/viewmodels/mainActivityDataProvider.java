@@ -44,6 +44,8 @@ public class mainActivityDataProvider  {
 
 
 
+
+
     public void clearMap(){
         map.clear();
     }
@@ -55,7 +57,7 @@ public class mainActivityDataProvider  {
         this.map=map;
     }
     //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
-    public void findPlacesAccordingToDistance(double currentLat,double currentLong,int radius, int  type,String key){
+    public List<place> findPlacesAccordingToDistance(double currentLat, double currentLong, int radius, int  type, String key){
         //obj.showProgressDialog("Please Wait");
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
@@ -63,23 +65,26 @@ public class mainActivityDataProvider  {
         this.selected=type+1;
         new PlaceTask().execute(url);
 
+        return placeList;
     }
 
-    public void filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
-       // obj.showProgressDialog("Please Wait");
+    public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
+        // obj.showProgressDialog("Please Wait");
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
         new PlaceTask().execute(url);
+        return placeList;
     }
 
-    public void findPlacesAccordingToKeyword(double currentLat,double currentLong,int radius , int type , String keyword , String key ){
+    public List<place> findPlacesAccordingToKeyword(double currentLat, double currentLong, int radius , int type , String keyword , String key ){
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&keyword=" +keyword+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
         new PlaceTask().execute(url);
+        return placeList;
     }
 
 
@@ -120,6 +125,7 @@ public class mainActivityDataProvider  {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            placeList=mapList;
             return mapList;
         }
 
