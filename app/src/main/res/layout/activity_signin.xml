@@ -5,25 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
+    android:background="@color/lightgrey"
     tools:context=".activities.SigninActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_sign_in_activity"
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize">
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        android:elevation="5dp"
+        android:layout_marginTop="3dp"
+        android:background="@color/transparent">
 
-        <TextView
-            android:id="@+id/tv_title"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:text="signin"
-            android:textColor="@color/primary_text_color"
-            android:textSize="30dp"
-            android:textStyle="bold"/>
+            android:layout_height="?attr/actionBarSize"
+            app:titleTextColor="@color/white"
+            app:title="Jan Dhan Darshak App"
+            android:elevation="5dp"
+            android:background="@color/darkgreen"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
 
-    </androidx.appcompat.widget.Toolbar>
+            >
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+<!--    <androidx.appcompat.widget.Toolbar-->
+<!--        android:id="@+id/toolbar_sign_in_activity"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="?attr/actionBarSize">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:gravity="center_vertical"-->
+<!--            android:text="signin"-->
+<!--            android:textColor="@color/primary_text_color"-->
+<!--            android:textSize="30dp"-->
+<!--            android:textStyle="bold"/>-->
+
+<!--    </androidx.appcompat.widget.Toolbar>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="8dp"
+
             android:layout_margin="18dp">
 
             <LinearLayout
