@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -23,6 +24,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.nearby_feature.JsonParser;
@@ -30,6 +35,7 @@ import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.activities.MapMissingBank;
+import com.example.nearby_feature.adapter;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
@@ -56,6 +62,8 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.button.MaterialButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,6 +72,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -99,7 +108,7 @@ implements OnMapReadyCallback {
 public class mapFragment extends Fragment {
 
     FusedLocationProviderClient fusedLocationProviderClient;
-   // public Dialog mProgressDialog;
+    // public Dialog mProgressDialog;
     ToggleButton toggleButton;
     double currentLat = 0, currentLong = 0;
     private final int atm=1;
@@ -116,10 +125,16 @@ public class mapFragment extends Fragment {
     private TextView tv2;
     private List<place> placeList;
     private mainActivityModel model;
-    private mainActivityDataProvider provider;
+    private mainActivityDataProvider provider=new mainActivityDataProvider();
     private LatLng currLocation;
     private String deviceLanguage;
-//    private static final String TAG = MapsActivityRaw.class.getSimpleName();
+
+    private MaterialButton showListButton;
+    public adapter listAdapter;
+    private BottomSheetBehavior bottomSheetBehavior;
+
+   //private static final String TAG = MapsActivityRaw.class.getSimpleName();
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,9 +142,24 @@ public class mapFragment extends Fragment {
         // Initialize view
         view=inflater.inflate(R.layout.fragment_map, container, false);
 
+        //provider.setMap(map);
         deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
+        if(provider!=null) {
+            placeList = provider.getPlaceList();
+        }
 
+        showListButton= view.findViewById(R.id.showList);
+
+        showListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               showList(view);
+
+            }
+        });
+//        View v=view.findViewById(R.id.bottomsheet);
+//        bottomSheetBehavior=BottomSheetBehavior.from(v);
         model=new mainActivityModel();
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
         bn.add(new MeowBottomNavigation.Model(atm, R.drawable.ic_baseline_atm_24));
@@ -151,16 +181,12 @@ public class mapFragment extends Fragment {
 
             public void onClickItem(MeowBottomNavigation.Model item) {
                 // navigate here
-               // showProgressDialog("please wait");
+                // showProgressDialog("please wait");
                 String name;
                 switch(item.getId()){
                     case atm:
 
                         selected=atm;
-
-//                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-//                            Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
-//                        }
                         toggleButton.setChecked(false);
                         changeState();
                         break;
@@ -202,21 +228,20 @@ public class mapFragment extends Fragment {
 
 
 
-                mainActivityDataProvider dataProvider = new mainActivityDataProvider();
-                provider=dataProvider;
-                dataProvider.setMap(map);
+
+                //provider.setMap(map);
 
                 if(selected<=3) {
-                    dataProvider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
-                    placeList=dataProvider.getPlaceList();
+                    placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+
                 }
                 else if(selected==4){
-                    dataProvider.findPlacesAccordingToKeyword(currentLat,currentLong,30000,selected-1,"csc",getResources().getString(R.string.google_map_key));
-                    placeList=dataProvider.getPlaceList();
+                    placeList=provider.findPlacesAccordingToKeyword(currentLat,currentLong,30000,selected-1,"csc",getResources().getString(R.string.google_map_key));
+
                 }
                 else{
                     Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
-                    dataProvider.clearMap();
+                    provider.clearMap();
                 }
 
 
@@ -282,7 +307,7 @@ public class mapFragment extends Fragment {
 
         // ----- edit text code over here
 
-       // Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
+        // Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
 
         //Set EditText non focusable
        /* editText.setFocusable(false);
@@ -318,20 +343,22 @@ public class mapFragment extends Fragment {
 
 
                     if(provider==null){
-                       //showProgressDialog("please wait");
+                        //showProgressDialog("please wait");
 //                    Toast.makeText(getActivity(), "Select first",
 //                            Toast.LENGTH_SHORT).show();
                         //showProgressDialog(temp);
-                        mainActivityDataProvider dataProvider = new mainActivityDataProvider();
-                        provider=dataProvider;
-                        dataProvider.setMap(map);
-                        dataProvider.filterPlacesByOpenNow(currentLat,currentLong,5000,0,getResources().getString(R.string.google_map_key));
+
+                        provider.setMap(map);
+                        placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,5000,0,getResources().getString(R.string.google_map_key));
+                        //placeList=provider.getPlaceList();
                         changeState();
+
                         //hideProgressDialog();
                     }
                     else{
                         //showProgressDialog("please wait");
-                        provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                        placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                        //placeList=provider.getPlaceList();
                         changeState();
                         //hideProgressDialog();
                     }
@@ -341,8 +368,8 @@ public class mapFragment extends Fragment {
                 }
                 else{
                     //showProgressDialog("please wait");
-                    provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
-
+                    placeList=provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                    //placeList=provider.getPlaceList();
                     changeState();
                     //hideProgressDialog();
 
@@ -403,7 +430,11 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
+
+
+
                             boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.style_json));
+
                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
                             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
@@ -455,6 +486,30 @@ public class mapFragment extends Fragment {
 //    public void hideProgressDialog() {
 //        mProgressDialog.dismiss();
 //    }
+
+    public void showList(View v){
+        if(placeList!=null) {
+
+            FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+
+
+            listFragment fg= new listFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("list", (Serializable) placeList);
+            fg.setArguments(bundle);
+
+            ft.replace(R.id.frame,fg);
+            ft.addToBackStack(null);
+            ft.commit();
+
+        }
+        else{
+            Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
 
 
 

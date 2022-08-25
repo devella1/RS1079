@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -22,6 +23,7 @@ import com.example.nearby_feature.fragments.dialogFragment;
 import com.example.nearby_feature.fragments.feedback;
 import com.example.nearby_feature.fragments.mapFragment;
 import com.example.nearby_feature.fragments.placeDetail;
+import com.example.nearby_feature.fragments.signin;
 import com.example.nearby_feature.fragments.userActivity;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -32,6 +34,7 @@ public class MainActivity extends BaseActivity {
     NavigationView nav;
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +81,12 @@ public class MainActivity extends BaseActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
                     case R.id.missingbank:
-                        Intent intent = new Intent(MainActivity.this,Missing_banks.class);
+                        intent = new Intent(MainActivity.this,Missing_banks.class);
+                        startActivity(intent);
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
+                    case R.id.login:
+                        intent = new Intent(MainActivity.this,SigninActivity.class);
                         startActivity(intent);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
@@ -130,7 +138,7 @@ public class MainActivity extends BaseActivity {
     public void onBackPressed() {
 
         FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 2 ) {
+        if (manager.getBackStackEntryCount() > 0 ) {
             // If there are back-stack entries, leave the FragmentActivity
             // implementation take care of them.
 
@@ -176,4 +184,6 @@ public class MainActivity extends BaseActivity {
         dialogFragment a=new dialogFragment();
         a.show(fragmentManager,"Dialog Box");
     }
+
+
 }
