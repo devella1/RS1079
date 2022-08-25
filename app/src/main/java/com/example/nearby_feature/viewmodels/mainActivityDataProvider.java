@@ -153,7 +153,7 @@ public class mainActivityDataProvider  {
 
         protected void onPostExecute(List<place> arr) {
 
-            map.clear();
+            //map.clear();
             StringBuilder st=new StringBuilder();
             ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);
@@ -308,19 +308,19 @@ public class mainActivityDataProvider  {
 
                                 if(selected==1)
                                 {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                 }
                                 else if(selected==2)
                                 {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                 }
                                 else if(selected==3)
                                 {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                 }
                                 else if(selected==4)
                                 {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
                                 }
 
                                 map.addMarker(options);
