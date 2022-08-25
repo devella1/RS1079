@@ -403,7 +403,7 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
-                            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.dark_style_json));
+                            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.aubergine_style_json));
                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
                             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
