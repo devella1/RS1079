@@ -36,6 +36,8 @@ import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.activities.MapMissingBank;
 import com.example.nearby_feature.adapter;
+import com.example.nearby_feature.firebase.FireStoreClass;
+import com.example.nearby_feature.newPlace;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
@@ -51,6 +53,7 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,6 +67,9 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -223,13 +229,21 @@ public class mapFragment extends Fragment {
 
                 }
 
-
-
-
-
-
-
                 provider.setMap(map);
+                provider.plot();
+
+
+//
+//                for(int i=0; i<ds.size(); i++)
+//                {
+//
+//
+//                    Toast.makeText(getActivity(),ds.get(i).name, Toast.LENGTH_SHORT).show();
+//
+//                }
+
+
+
 
                 if(selected<=3) {
                     placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
@@ -284,7 +298,7 @@ public class mapFragment extends Fragment {
 
         });
 
-        bn.show(atm,true);
+        //bn.show(atm,true);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -342,16 +356,13 @@ public class mapFragment extends Fragment {
                 if(toggleButton.isChecked()){
 
 
-                    if(provider==null){
+                    if(provider==null || map==null){
                         //showProgressDialog("please wait");
 //                    Toast.makeText(getActivity(), "Select first",
 //                            Toast.LENGTH_SHORT).show();
                         //showProgressDialog(temp);
 
-                        provider.setMap(map);
-                        placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,5000,0,getResources().getString(R.string.google_map_key));
-                        //placeList=provider.getPlaceList();
-                        changeState();
+                        Toast.makeText(getActivity(),"Please select navbar before filter",Toast.LENGTH_SHORT).show();
 
                         //hideProgressDialog();
                     }
@@ -378,6 +389,10 @@ public class mapFragment extends Fragment {
             }
         });
 
+
+
+//        provider.setMap(map);
+//        placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, 0, getResources().getString(R.string.google_map_key));
 
 
         return view;

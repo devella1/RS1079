@@ -2,11 +2,15 @@ package com.example.nearby_feature.viewmodels;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
+import com.example.nearby_feature.newPlace;
 import com.example.nearby_feature.place;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,6 +21,11 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -255,6 +264,76 @@ public class mainActivityDataProvider  {
         double dist=  (AVERAGE_RADIUS_OF_EARTH_KM * c);
         dist=(double)Math.round(dist*1000d)/1000d;
         return dist;
+    }
+
+    public void plot(){
+       map.clear();
+        List<newPlace> ds = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("dataset")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+//                                newPlace np =document.toObject(newPlace.class);
+//                                ds.add(np);
+
+                                newPlace np =new newPlace("hello","31.25809249169579","75.70791196078062","24/7","Atm");
+                                ds.add(np);
+                                Log.d("TAG", document.getId() + " => " + document.getData());
+                                Log.d("TAG", np.desc);
+                                Log.d("TAG", String.valueOf(ds.size()));
+
+                                //Toast.makeText(getActivity(),ds.size(), Toast.LENGTH_SHORT).show();
+                            }
+
+
+                            //code here
+                            for(int i=0;i<ds.size();i++){
+                                newPlace p= ds.get(i);
+                                double lat= Double.parseDouble(p.lat);
+                                double lng= Double.parseDouble(p.lon);
+
+                                Log.d("TAG", p.lat);
+                                String Pname= p.name;
+                                // st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
+                                LatLng latLng= new LatLng(lat, lng);
+                                MarkerOptions options= new MarkerOptions();
+                                options.position(latLng);
+                                options.title(Pname);
+
+
+                                if(selected==1)
+                                {
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                                }
+                                else if(selected==2)
+                                {
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                                }
+                                else if(selected==3)
+                                {
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                                }
+                                else if(selected==4)
+                                {
+                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                                }
+
+                                map.addMarker(options);
+
+
+                            }
+
+
+                        } else {
+
+                        }
+                    }
+                });
     }
 
 }

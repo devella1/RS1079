@@ -20,6 +20,8 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.Objects;
+
 public class Missing_banks extends BaseActivity {
 
     private Button btn_submit;
@@ -127,8 +129,22 @@ public class Missing_banks extends BaseActivity {
         String st_name = name.getText().toString();
         String st_desc = desc.getText().toString();
 
+        String curUserId = FireStoreClass.getCurrentUserID();
 
-        FireStoreClass.addMissingBank(st_name,st_desc,latitude,longitude,type,this);
+
+        Toast.makeText(this,curUserId,Toast.LENGTH_SHORT).show();
+        if(Objects.equals(curUserId, "")){
+            Toast.makeText(this,"Please login first",Toast.LENGTH_SHORT).show();
+        }
+        else if(Objects.equals(curUserId, "RQqQa4QlEmak5Q7ZUX1abvGLxV22")){
+            Toast.makeText(this,"admin",Toast.LENGTH_SHORT).show();
+            FireStoreClass.addMissingBank(st_name,st_desc,latitude,longitude,type,this,true);
+        }
+        else{
+            Toast.makeText(this,"user",Toast.LENGTH_SHORT).show();
+            FireStoreClass.addMissingBank(st_name,st_desc,latitude,longitude,type,this,false);
+        }
+
     }
 
 
