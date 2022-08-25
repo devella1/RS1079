@@ -2,6 +2,7 @@ package com.example.nearby_feature.fragments;
 
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -24,7 +25,9 @@ import androidx.fragment.app.Fragment;
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
+import com.example.nearby_feature.activities.MapMissingBank;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
@@ -65,6 +68,8 @@ import java.util.Locale;
 public class mapFragment extends Fragment {
 
     FusedLocationProviderClient fusedLocationProviderClient;
+   // public Dialog mProgressDialog;
+    ToggleButton toggleButton;
     double currentLat = 0, currentLong = 0;
     private final int atm=1;
     private final int bank=2;
@@ -104,47 +109,55 @@ public class mapFragment extends Fragment {
 
         // Async map
 
-
+        toggleButton = view.findViewById(R.id.filterByOpenNow);
 
         // Return view
-
         bn.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
 
             public void onClickItem(MeowBottomNavigation.Model item) {
                 // navigate here
-
+               // showProgressDialog("please wait");
                 String name;
                 switch(item.getId()){
                     case atm:
                         name="ATM";
                         selected=atm;
-                        //if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-                        //    Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
-                        //}
+//                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
+//                            Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
+//                        }
+                        toggleButton.setChecked(false);
+                        changeState();
                         break;
                     case bank:
                         name="BANK";
                         selected=bank;
-
+                        toggleButton.setChecked(false);
+                        changeState();
                         break;
                     case csc:
                         name="hospital";
                         selected=atm;
-
+                        toggleButton.setChecked(false);
+                        changeState();
                         break;
                     case post:
                         name="bank";
                         selected=bank;
-
+                        toggleButton.setChecked(false);
+                        changeState();
                         break;
                     case bankMitra:
                         name="bankr";
                         selected=bank;
+                        toggleButton.setChecked(false);
+                        changeState();
                         break;
                     default:
                         name="atm";
+                        toggleButton.setChecked(false);
                         selected=1;
+                        changeState();
 
                 }
 
@@ -159,7 +172,7 @@ public class mapFragment extends Fragment {
                 provider=dataProvider;
                 dataProvider.setMap(map);
                 dataProvider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
-
+                //hideProgressDialog();
             }
         });
 
@@ -191,7 +204,11 @@ public class mapFragment extends Fragment {
                         name="atm";
 
                 }
+
+
             }
+
+
         });
 
         bn.show(atm,true);
@@ -237,7 +254,7 @@ public class mapFragment extends Fragment {
         });
         */
 
-        ToggleButton toggleButton = view.findViewById(R.id.filterByOpenNow);
+
 
 
 
@@ -248,16 +265,35 @@ public class mapFragment extends Fragment {
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(toggleButton.isChecked()){
-                    provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
-                    toggleButton.setBackgroundColor(getResources().getColor(R.color.forestgreen));
-                    toggleButton.setTextColor(getResources().getColor(R.color.white));
+
+                    if(provider==null){
+                       //showProgressDialog("please wait");
+//                    Toast.makeText(getActivity(), "Select first",
+//                            Toast.LENGTH_SHORT).show();
+                        //showProgressDialog(temp);
+                        mainActivityDataProvider dataProvider = new mainActivityDataProvider();
+                        provider=dataProvider;
+                        dataProvider.setMap(map);
+                        dataProvider.filterPlacesByOpenNow(currentLat,currentLong,5000,0,getResources().getString(R.string.google_map_key));
+                        changeState();
+                        //hideProgressDialog();
+                    }
+                    else{
+                        //showProgressDialog("please wait");
+                        provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                        changeState();
+                        //hideProgressDialog();
+                    }
+
+
                 }
                 else{
-
+                    //showProgressDialog("please wait");
                     provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
-                    toggleButton.setBackgroundColor(getResources().getColor(R.color.white));
-                    toggleButton.setTextColor(getResources().getColor(R.color.black));
+                    changeState();
+                    //hideProgressDialog();
 
                 }
             }
@@ -347,6 +383,29 @@ public class mapFragment extends Fragment {
             }
         }
     }
+
+    public void changeState(){
+        if(toggleButton.isChecked()){
+            toggleButton.setBackgroundColor(getResources().getColor(R.color.forestgreen));
+            toggleButton.setTextColor(getResources().getColor(R.color.white));
+        }
+        else{
+            toggleButton.setBackgroundColor(getResources().getColor(R.color.white));
+            toggleButton.setTextColor(getResources().getColor(R.color.black));
+        }
+    }
+
+//    public void showProgressDialog(String text) {
+//        mProgressDialog = new Dialog(getActivity());
+//        mProgressDialog.setContentView(R.layout.dialog_progress);
+//        TextView tv_progress_text = mProgressDialog.findViewById(R.id.tv_progress_text);
+//        tv_progress_text.setText(text);
+//        mProgressDialog.show();
+//    }
+//
+//    public void hideProgressDialog() {
+//        mProgressDialog.dismiss();
+//    }
 
 
 

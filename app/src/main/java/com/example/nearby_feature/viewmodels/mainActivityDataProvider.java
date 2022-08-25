@@ -1,9 +1,12 @@
 package com.example.nearby_feature.viewmodels;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 
 import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.activities.BaseActivity;
+import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.place;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,7 +27,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class mainActivityDataProvider {
+public class mainActivityDataProvider  {
 
     public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
@@ -33,6 +36,7 @@ public class mainActivityDataProvider {
     private Double currentLong;
     private String placeTypeList[] = {"atm", "bank", "hospital"};
     private int selected;
+    //MainActivity obj = new MainActivity();
 
 
     public void setMap(GoogleMap map){
@@ -40,6 +44,7 @@ public class mainActivityDataProvider {
     }
     //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
     public void findPlacesAccordingToDistance(double currentLat,double currentLong,int radius, int  type,String key){
+        //obj.showProgressDialog("Please Wait");
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
@@ -49,6 +54,7 @@ public class mainActivityDataProvider {
     }
 
     public void filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
+       // obj.showProgressDialog("Please Wait");
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
         this.currentLat=currentLat;
         this.currentLong=currentLong;
@@ -157,6 +163,8 @@ public class mainActivityDataProvider {
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
+
+            //obj.hideProgressDialog();
         }
     }
 
