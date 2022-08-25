@@ -140,19 +140,19 @@ public class mapFragment extends Fragment {
                         break;
                     case csc:
                         name="hospital";
-                        selected=atm;
+                        selected=csc;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case post:
                         name="bank";
-                        selected=bank;
+                        selected=post;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case bankMitra:
                         name="bankr";
-                        selected=bank;
+                        selected=bankMitra;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
