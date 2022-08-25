@@ -42,8 +42,8 @@ public class MainActivity extends BaseActivity {
 
         // Initialize fragment
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-                toolbar.setTitle("Jan Dhan Darshak App");
-             setSupportActionBar(toolbar);
+        toolbar.setTitle("Jan Dhan Darshak App");
+        setSupportActionBar(toolbar);
 
         mapFragment fragment=new mapFragment();
 
@@ -57,8 +57,8 @@ public class MainActivity extends BaseActivity {
 
         drawerLayout = findViewById(R.id.drawer);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.nav_open, R.string.nav_close);
-           drawerLayout.addDrawerListener(actionBarDrawerToggle);
-           actionBarDrawerToggle.syncState();
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
 
 
         nav=findViewById(R.id.slidewindow);
