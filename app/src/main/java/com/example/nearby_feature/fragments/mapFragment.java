@@ -142,7 +142,7 @@ public class mapFragment extends Fragment {
         // Initialize view
         view=inflater.inflate(R.layout.fragment_map, container, false);
 
-        //provider.setMap(map);
+        provider.setMap(map);
         deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
         if(provider!=null) {
@@ -229,7 +229,7 @@ public class mapFragment extends Fragment {
 
 
 
-                //provider.setMap(map);
+                provider.setMap(map);
 
                 if(selected<=3) {
                     placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
@@ -430,11 +430,7 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
-
-
-
-                            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.style_json));
-
+                            boolean success = googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.retro_style_json));
                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
                             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters

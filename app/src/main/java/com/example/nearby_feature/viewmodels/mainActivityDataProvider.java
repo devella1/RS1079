@@ -87,6 +87,15 @@ public class mainActivityDataProvider  {
         return placeList;
     }
 
+    public List<place> findOpenPlacesAccordingToKeyword(double currentLat, double currentLong,int radius , int type , String keyword,String key){
+        String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&keyword=" +keyword+ "&sensor=true" + "&key=" + key+"&opennow";
+        this.currentLat=currentLat;
+        this.currentLong=currentLong;
+        this.selected=type+1;
+        new PlaceTask().execute(url);
+        return placeList;
+    }
+
 
 
     private class PlaceTask extends AsyncTask<String, Integer, String> {
@@ -153,6 +162,7 @@ public class mainActivityDataProvider  {
                 MarkerOptions options= new MarkerOptions();
                 options.position(latLng);
                 options.title(name);
+
 
                 if(selected==1)
                 {
