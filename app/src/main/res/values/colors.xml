@@ -14,7 +14,7 @@
     <color name="darkgreen">#006400</color>
     <color name="green">#32CD32</color>
     <color name="forestgreen">#228B22</color>
-
+    <color name="darkwhite">#ECECEC</color>
     <color name="primary_text_color">#363A43</color>
     <color name="secondary_text_color">#7A8089</color>
     <color name="snackbar_error_color">#F72400</color>

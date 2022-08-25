@@ -4,6 +4,19 @@
     <group android:checkableBehavior="single">
         <item android:title="@string/home">
             <menu>
+                <item android:id="@+id/login"
+                    android:icon="@drawable/ic_baseline_home_24"
+                    android:title="@string/login_sidemenu"/>
+
+
+            </menu>
+        </item>
+    </group>
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="@string/home">
+            <menu>
                 <item android:id="@+id/home"
                     android:icon="@drawable/ic_baseline_home_24"
                     android:title="@string/home_sidemenu"/>
