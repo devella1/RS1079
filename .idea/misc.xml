@@ -27,14 +27,18 @@
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/drawable-v24/result_voice.xml" value="0.1135" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/drawable-v24/voice_search.xml" value="0.1135" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1135" />
+        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/activity_main.xml" value="0.275" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/activity_splash_screen.xml" value="0.25104166666666666" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/appbar.xml" value="0.25104166666666666" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/cardviewforplacelist.xml" value="0.25104166666666666" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/dialog_progress.xml" value="0.25104166666666666" />
+        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/dialogbox.xml" value="0.264" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/fragment_map.xml" value="0.1265625" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/fragment_missing_banks_map.xml" value="0.25104166666666666" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/fragment_place_detail.xml" value="0.25104166666666666" />
         <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/layout/fragment_user_activity.xml" value="0.25104166666666666" />
+        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/menu/settings.xml" value="0.275" />
+        <entry key="..\:/SIH/DevanshLatest/RS1079/app/src/main/res/menu/sidemenu.xml" value="0.275" />
         <entry key="app/src/main/res/drawable-v24/post_office.xml" value="0.2195" />
         <entry key="app/src/main/res/drawable-v24/result_detail.xml" value="0.313" />
         <entry key="app/src/main/res/drawable-v24/result_list.xml" value="0.313" />

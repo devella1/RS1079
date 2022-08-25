@@ -9,7 +9,15 @@
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
-        <item name="marathi">MARATHI</item>
+        <item name="tamil">TAMIL</item>
+        <item name="telugu">TELUGU</item>
+    </string-array>
+    <string-array name="themeslist">
+        <item name ="standard">STANDARD</item>
+        <item name ="dark">DARK</item>
+        <item name ="aubergine">AUBERGINE</item>
+        <item name ="retro">RETRO</item>
+        <item name ="silver">SILVER</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
