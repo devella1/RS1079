@@ -45,7 +45,7 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder>{
 
     }
     public void onBindViewHolder(adapter.ViewHolder holder , @SuppressLint("RecyclerView") int position){
-        place a= data.get(position);
+        place a= (place)data.get(position);
         CardView c=holder.cardView;
         
         TextView q=c.findViewById(R.id.placeName);

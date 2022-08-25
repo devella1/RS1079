@@ -94,10 +94,7 @@ public class mapFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Initialize view
         view=inflater.inflate(R.layout.fragment_map, container, false);
-
         deviceLanguage = Locale.getDefault().getLanguage();
-        //View v=inflater.inflate(R.layout.fragment_map,container,false);
-
         model=new mainActivityModel();
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
         bn.add(new MeowBottomNavigation.Model(atm, R.drawable.ic_baseline_atm_24));
@@ -133,26 +130,24 @@ public class mapFragment extends Fragment {
                         changeState();
                         break;
                     case bank:
-                        name="BANK";
+
                         selected=bank;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case csc:
-                        name="hospital";
-                        selected=atm;
+
+                        selected=csc;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case post:
-                        name="bank";
-                        selected=bank;
+                        selected=post;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case bankMitra:
-                        name="bankr";
-                        selected=bank;
+                        selected=bankMitra;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
