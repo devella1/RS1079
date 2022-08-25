@@ -8,13 +8,11 @@
     tools:context=".fragments.mapFragment">
 
 
-
-
     <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/google_map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/>
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:layout_width="match_parent"
@@ -79,6 +77,22 @@
 
             -->
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/showResult"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="75dp"
+        android:gravity="end"
+        android:onClick="onClick"
+        android:text="View List"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        app:cornerRadius="20dp"
+        app:icon="@drawable/result_list"
+        app:iconTint="@color/black" />
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottombar"

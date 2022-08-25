@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class mainActivityDataProvider {
@@ -31,10 +32,18 @@ public class mainActivityDataProvider {
     private GoogleMap map;
     private Double currentLat;
     private Double currentLong;
-    private String placeTypeList[] = {"atm", "bank", "hospital"};
+    private String placeTypeList[] = {"atm", "bank", "post_office"};
     private int selected;
+    private List<place> placeList;
 
 
+    public void clearMap(){
+        map.clear();
+    }
+
+    public List<place> getPlaceList(){
+        return placeList;
+    }
     public void setMap(GoogleMap map){
         this.map=map;
     }
@@ -50,6 +59,14 @@ public class mainActivityDataProvider {
 
     public void filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
+        this.currentLat=currentLat;
+        this.currentLong=currentLong;
+        this.selected=type+1;
+        new PlaceTask().execute(url);
+    }
+
+    public void findPlacesAccordingToKeyword(double currentLat,double currentLong,int radius , int type , String keyword , String key ){
+        String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&keyword=" +keyword+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
@@ -106,6 +123,7 @@ public class mainActivityDataProvider {
             map.clear();
             StringBuilder st=new StringBuilder();
             //TextView t=view.findViewById(R.id.distances);
+            placeList=arr;
             for(int i=0; i<arr.size(); i++)
             {
                 place p= arr.get(i);
@@ -114,7 +132,7 @@ public class mainActivityDataProvider {
 
 
                 String name= p.getName();
-                st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
+                // st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
                 LatLng latLng= new LatLng(lat, lng);
                 MarkerOptions options= new MarkerOptions();
                 options.position(latLng);
@@ -152,7 +170,7 @@ public class mainActivityDataProvider {
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
             map.addMarker(options);
 
-            //t.setText(String.valueOf(st));
+
             LatLng currLocation=new LatLng(currentLat,currentLong);
             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters

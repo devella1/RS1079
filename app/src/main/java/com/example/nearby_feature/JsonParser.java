@@ -18,8 +18,9 @@ public class JsonParser {
             String name= object.getString("name");
             String latitude=object.getJSONObject("geometry").getJSONObject("location").getString("lat");
             String longitude=object.getJSONObject("geometry").getJSONObject("location").getString("lng");
+            String id=object.getString("place_id");
 
-            a=new place(name,latitude,longitude);
+            a=new place(name,latitude,longitude,id);
         } catch (JSONException e) {
             e.printStackTrace();
         }

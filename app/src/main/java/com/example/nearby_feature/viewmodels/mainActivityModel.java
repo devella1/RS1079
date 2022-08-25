@@ -168,7 +168,7 @@ public class mainActivityModel{
                 markerOptions.position(latLng);
                 markerOptions.title(placename);
                 map.addMarker(markerOptions);
-                /*markerOptions.snippet(place.get("vicinity"));
+                markerOptions.snippet(place.get("vicinity"));
 
                 int height=100;
                 int width=100;
@@ -177,7 +177,7 @@ public class mainActivityModel{
                 Bitmap smallMarker = Bitmap.createScaledBitmap(bitmap,width,height,false);
                 markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
                 Marker marker=map.addMarker(markerOptions);
-                */
+
 
 
 

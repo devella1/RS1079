@@ -57,6 +57,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -78,10 +79,10 @@ public class mapFragment extends Fragment {
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
-
+    private List<place> placeList;
+    private mainActivityModel model;
     private mainActivityDataProvider provider;
     private LatLng currLocation;
-    //private String placeTypeList[] = {"atm", "bank", "hospital"};
     private String deviceLanguage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,12 +93,13 @@ public class mapFragment extends Fragment {
         deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
 
+        model=new mainActivityModel();
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
         bn.add(new MeowBottomNavigation.Model(atm, R.drawable.ic_baseline_atm_24));
-        bn.add(new MeowBottomNavigation.Model(bank, R.drawable.ic_baseline_local_post_office_24));
-        bn.add(new MeowBottomNavigation.Model(post, R.drawable.ic_baseline_help_24));
-        bn.add(new MeowBottomNavigation.Model(csc, R.drawable.ic_baseline_man_24));
-        bn.add(new MeowBottomNavigation.Model(bankMitra, R.drawable.ic_baseline_feedback_24));
+        bn.add(new MeowBottomNavigation.Model(bank, R.drawable.banks));
+        bn.add(new MeowBottomNavigation.Model(post, R.drawable.ic_baseline_local_post_office_24));
+        bn.add(new MeowBottomNavigation.Model(csc, R.drawable.csc));
+        bn.add(new MeowBottomNavigation.Model(bankMitra, R.drawable.bankmitra));
         // Initialize map fragment
         supportMapFragment=(SupportMapFragment)
                 getChildFragmentManager().findFragmentById(R.id.google_map);
@@ -117,31 +119,30 @@ public class mapFragment extends Fragment {
                 String name;
                 switch(item.getId()){
                     case atm:
-                        name="ATM";
+
                         selected=atm;
-                        //if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-                        //    Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
-                        //}
+
                         break;
                     case bank:
                         name="BANK";
                         selected=bank;
 
+
                         break;
                     case csc:
                         name="hospital";
-                        selected=atm;
+                        selected=csc;
 
                         break;
                     case post:
                         name="bank";
-                        selected=bank;
+                        selected=post;
 
                         break;
                     case bankMitra:
-                        name="bankr";
-                        selected=bank;
+                        selected=bankMitra;
                         break;
+
                     default:
                         name="atm";
                         selected=1;
@@ -149,16 +150,28 @@ public class mapFragment extends Fragment {
                 }
 
 
-                // this process will make the requests each time is not good , it must be changed
-                //int i = selected-1;
-                //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
 
-                //new PlaceTask().execute(url);
+
+
 
                 mainActivityDataProvider dataProvider = new mainActivityDataProvider();
                 provider=dataProvider;
                 dataProvider.setMap(map);
-                dataProvider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                if(selected<=3) {
+                    dataProvider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+                    placeList=dataProvider.getPlaceList();
+                }
+                else if(selected==4){
+                    dataProvider.findPlacesAccordingToKeyword(currentLat,currentLong,30000,selected-1,"csc",getResources().getString(R.string.google_map_key));
+                    placeList=dataProvider.getPlaceList();
+                }
+                else{
+                    Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
+                    dataProvider.clearMap();
+                }
+
+
+
 
             }
         });
@@ -217,7 +230,7 @@ public class mapFragment extends Fragment {
 
         // ----- edit text code over here
 
-        Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
+       // Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
 
         //Set EditText non focusable
        /* editText.setFocusable(false);
@@ -252,12 +265,15 @@ public class mapFragment extends Fragment {
                     provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
                     toggleButton.setBackgroundColor(getResources().getColor(R.color.forestgreen));
                     toggleButton.setTextColor(getResources().getColor(R.color.white));
+                    placeList=provider.getPlaceList();
+
                 }
                 else{
 
                     provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
                     toggleButton.setBackgroundColor(getResources().getColor(R.color.white));
                     toggleButton.setTextColor(getResources().getColor(R.color.black));
+                    placeList=provider.getPlaceList();
 
                 }
             }
@@ -300,10 +316,6 @@ public class mapFragment extends Fragment {
 
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            // here to request the missing permissions, and then overriding
-
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
