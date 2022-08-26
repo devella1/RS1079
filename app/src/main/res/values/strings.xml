@@ -6,12 +6,23 @@
     <string name="nav_open">Open</string>
     <string name="nav_close">Close</string>
     <string name="login_sidemenu">Login</string>
+    <string name="editText">Enter the Keyword Here</string>
+    <string name="filterByBanks">Bank</string>
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
         <item name="tamil">TAMIL</item>
         <item name="telugu">TELUGU</item>
     </string-array>
+
+    <string-array name="banklist">
+        <item name="sbi">SBI</item>
+        <item name="axis">AXIS</item>
+        <item name="hdfc">HDFC</item>
+        <item name="baroda">BARODA</item>
+        <item name="punjab">PUNJAB NATIONAL BANK</item>
+    </string-array>
+
     <string-array name="themeslist">
         <item name ="standard">STANDARD</item>
         <item name ="dark">DARK</item>
@@ -19,6 +30,7 @@
         <item name ="retro">RETRO</item>
         <item name ="silver">SILVER</item>
     </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_activity">User Activity</string>

@@ -24,12 +24,14 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +56,11 @@ public class mainActivityDataProvider  {
     private String placeTypeList[] = {"atm", "bank", "post_office"};
     private int selected;
 
+    private int radius ;
     private List<place> placeList;
+
+
+
 
 
 
@@ -77,17 +83,19 @@ public class mainActivityDataProvider  {
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
 
         return placeList;
     }
 
     public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
-        // obj.showProgressDialog("Please Wait");
+       // obj.showProgressDialog("Please Wait");
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
         return placeList;
     }
@@ -97,6 +105,7 @@ public class mainActivityDataProvider  {
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
         return placeList;
     }
@@ -106,6 +115,7 @@ public class mainActivityDataProvider  {
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
         return placeList;
     }
@@ -158,7 +168,7 @@ public class mainActivityDataProvider  {
 
         protected void onPostExecute(List<place> arr) {
 
-            //map.clear();
+            map.clear();
             StringBuilder st=new StringBuilder();
             ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);
@@ -225,7 +235,7 @@ public class mainActivityDataProvider  {
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
             map.animateCamera(cu);
 //            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
+            CircleOptions circly = new CircleOptions().center(currLocation).radius(radius).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
 
             //obj.hideProgressDialog();
@@ -270,6 +280,7 @@ public class mainActivityDataProvider  {
         dist=(double)Math.round(dist*1000d)/1000d;
         return dist;
     }
+
 
 
 
@@ -395,3 +406,6 @@ public class mainActivityDataProvider  {
     }
 
 }
+
+
+

@@ -129,10 +129,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

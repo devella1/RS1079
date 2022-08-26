@@ -4,74 +4,74 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
     android:elevation="5dp"
     app:cardCornerRadius="5dp"
+
     >
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginBottom="5dp"
+    android:background="#fff">
+
     <LinearLayout
-
-        android:layout_width="match_parent"
+        android:id="@+id/resultItem"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="5dp"
-        android:background="#fff">
-
-        <LinearLayout
-            android:id="@+id/resultItem"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        android:orientation="vertical"
+        android:background="@color/forestgreen">
+        <TextView
+            android:id="@+id/placeName1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/forestgreen">
-            <TextView
-                android:id="@+id/placeName1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PNB ATM"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="20dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/white"/>
+            android:text="PNB ATM"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
 
-            <TextView
-                android:id="@+id/placeAddress1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jatpura makimpur Road, Bulandshahr"
-                android:maxLines="2"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="20dp"
-                android:textSize="14sp"
-                android:ellipsize="end"
-                android:textColor="@color/white"
-                />
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/placeCall1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="#fff"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/place_call"/>
-
-        <ImageButton
-            android:id="@+id/placeDirections1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@color/forestgreen"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/directions"/>
-
-
-
-
+        <TextView
+            android:id="@+id/placeAddress1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jatpura makimpur Road, Bulandshahr"
+            android:maxLines="2"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="14sp"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/placeCall1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#fff"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/place_call"/>
+
+    <ImageButton
+        android:id="@+id/placeDirections1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@color/forestgreen"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/directions"/>
+
+
+
+
+
+</LinearLayout>
 
 </androidx.cardview.widget.CardView>

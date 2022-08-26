@@ -14,13 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/distances"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -40,44 +34,98 @@
             />
     </androidx.cardview.widget.CardView>
 
-    <!--
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:id="@+id/edit_text"
-            android:hint="Enter Address"
-            android:padding="16dp"
-            android:drawablePadding="16dp"
-            android:drawableLeft="@drawable/ic_baseline_location_on_24"
-            android:gravity="center_vertical"
-            android:background="@android:drawable/editbox_background"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:layout_anchor="@+id/cardView"
+        app:layout_anchorGravity="start">
 
-    this is the edit text
-
-        <TextView
+        <Spinner
+            android:id="@+id/filterByBanks"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tv1"
-            android:textColor="@color/purple_200"
-            android:fontFamily="monospace"
-            android:padding="12dp"
-            android:layout_marginTop="32dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv2"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:background="@color/white"
+            android:entries="@array/banklist"
             android:gravity="center"
-            android:padding="12dp"
-            android:layout_marginTop="16dp"/>
+            android:padding="5dp"
+            android:text="@string/filterByBanks"
+            app:layout_anchor="@id/filterByOpenNow"
 
-            -->
+            app:layout_anchorGravity="right"
+
+            />
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_settings_24"
+        app:layout_anchor="@+id/google_map"
+        app:layout_anchorGravity="right"
+        android:layout_marginTop="10dp"
+        android:id="@+id/settings"
+        app:backgroundTint="@color/white"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/voicesearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/voice_search"
+        app:layout_anchor="@id/settings"
+        app:layout_anchorGravity="end"
+        app:backgroundTint="@color/white"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/textsearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/search"
+        app:layout_anchor="@id/voicesearch"
+        app:layout_anchorGravity="end"
+        app:backgroundTint="@color/white"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/cardviewForEditText"
+        >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:hint="@string/editText"
+        android:gravity="center"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:id="@+id/keyword"/>
+
+    </androidx.cardview.widget.CardView>
 
 
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:text="show"
+        app:layout_anchor="@id/cardviewForEditText"
+        app:layout_anchorGravity="bottom|end" />
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottombar"
@@ -87,7 +135,6 @@
         android:layout_gravity="bottom"
         app:mbn_backgroundBottomColor="@color/darkgreen"
         app:mbn_defaultIconColor="@color/white"
-
         app:mbn_rippleColor="@color/silver"
         app:mbn_selectedIconColor="@color/darkgreen" />
 
@@ -95,6 +142,7 @@
         android:id="@+id/showList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:text="View List"
         android:textAllCaps="false"
         android:textColor="@color/white"
@@ -107,8 +155,37 @@
         android:layout_marginRight="3dp"/>
 
 
+    <Button
+        android:id="@+id/showfirstItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:text="show first item"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="20dp"
+        app:iconTint="@color/white"
+        app:layout_anchor="@+id/google_map"
+        app:layout_anchorGravity="bottom|start"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="3dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:id="@+id/listOfplaces"
+        android:layout_alignParentBottom="true"
+        app:layout_anchor="@+id/google_map"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:behavior_peekHeight="500dp"
+        app:behavior_hideable="true"
+        >
 
 
+
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 
