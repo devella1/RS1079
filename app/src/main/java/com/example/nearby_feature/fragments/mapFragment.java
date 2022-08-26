@@ -20,12 +20,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
 import android.widget.ToggleButton;
-
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +40,8 @@ import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.activities.MapMissingBank;
 import com.example.nearby_feature.adapter;
 import com.example.nearby_feature.detailActivity;
+import com.example.nearby_feature.firebase.FireStoreClass;
+import com.example.nearby_feature.newPlace;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
@@ -51,9 +56,13 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.maps.model.MapStyleOptions;
+import androidx.appcompat.app.AppCompatActivity;
+
+
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -63,6 +72,9 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,18 +83,43 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
+
+
+/*
+public class MapsActivityRaw extends AppCompatActivity
+implements OnMapReadyCallback {
+
+    private static final String TAG = MapsActivityRaw.class.getSimpleName();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // Retrieve the content view that renders the map.
+        setContentView(R.layout.fragment_map);
+
+        // Get the SupportMapFragment and register for the callback
+        // when the map is ready for use.
+        SupportMapFragment mapFragment =
+                (SupportMapFragment) getSupportFragmentManager()
+                        .findFragmentById(R.id.google_map);
+        mapFragment.getMapAsync(this);
+    }
+}
+*/
 
 public class mapFragment extends Fragment {
 
     FusedLocationProviderClient fusedLocationProviderClient;
-   // public Dialog mProgressDialog;
+    // public Dialog mProgressDialog;
     ToggleButton toggleButton;
     public static double currentLat = 0, currentLong = 0;
     private final int atm=1;
@@ -189,6 +226,7 @@ public class mapFragment extends Fragment {
             }
         });
 
+
         showListButton= view.findViewById(R.id.showList);
         showFirstButton=view.findViewById(R.id.showfirstItem);
         showFirstButton.setOnClickListener(new View.OnClickListener() {
@@ -206,52 +244,15 @@ public class mapFragment extends Fragment {
             }
         });
 
-
-
         showListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(placeList!=null) {
-                    Toast.makeText(getActivity(),"list present ",Toast.LENGTH_SHORT).show();
-
-
-                   // listAdapter = new adapter(placeList);
-//                    Toast.makeText(getActivity(),placeList.get(0).getName(),Toast.LENGTH_SHORT).show();
-//                    RecyclerView k = view.findViewById(R.id.listOfplaces);
-//                    Toast.makeText(getActivity(),"linear layout set properly ",Toast.LENGTH_SHORT).show();
-//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-//                    Toast.makeText(getActivity(),"linear layout manager  set properly ",Toast.LENGTH_SHORT).show();
-//                    k.setAdapter(listAdapter);
-
-//            listAdapter.setListener(new adapter.Listener() {
-//
-//                public void onClick(int p) {
-//                /*
-//                Intent i=new Intent(CollegeActivity.this,CollegeDetails.class);
-//                if(check==0){
-//                    i.putExtra("selectedCollege",data.get(p));
-//                    startActivity(i);}
-//                else{
-//                    i.putExtra("selectedCollege",filteredlist.get(p));
-//                    startActivity(i);
-//                }
-//
-//
-//                 */
-//
-//                }
-//            });
-               //bottomSheetBehavior.setDraggable(true);
-             //  bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-                else{
-                    Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
-                }
+                showList(view);
 
             }
         });
-        //View v=view.findViewById(R.id.listOfplaces);
-        //bottomSheetBehavior=BottomSheetBehavior.from(v);
+//        View v=view.findViewById(R.id.bottomsheet);
+//        bottomSheetBehavior=BottomSheetBehavior.from(v);
         model=new mainActivityModel();
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
         bn.add(new MeowBottomNavigation.Model(atm, R.drawable.ic_baseline_atm_24));
@@ -273,7 +274,7 @@ public class mapFragment extends Fragment {
 
             public void onClickItem(MeowBottomNavigation.Model item) {
                 // navigate here
-               // showProgressDialog("please wait");
+                // showProgressDialog("please wait");
                 String name;
                 switch(item.getId()){
                     case atm:
@@ -315,16 +316,34 @@ public class mapFragment extends Fragment {
 
                 }
 
+                ArrayList<String> dbTypes = new ArrayList<String>() {
+                    {
+                        add("Atm");
+                        add("Bank");
+                        add("PostOffice");
+                        add("Csc");
+                        add("BankMitra");
+                    }
+                };
+
+                provider.setMap(map);
+                provider.plot(currLocation,1000,dbTypes.get(selected-1));
+
+
+//
+//                for(int i=0; i<ds.size(); i++)
+//                {
+//
+//
+//                    Toast.makeText(getActivity(),ds.get(i).name, Toast.LENGTH_SHORT).show();
+//
+//                }
 
 
 
-
-
-                
-               //provider.setMap(map);
 
                 if(selected<=3) {
-                    placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
+                    placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong,  BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
 
                 }
                 else if(selected==4){
@@ -376,7 +395,7 @@ public class mapFragment extends Fragment {
 
         });
 
-        bn.show(atm,true);
+        //bn.show(atm,true);
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
@@ -400,13 +419,13 @@ public class mapFragment extends Fragment {
                 if(toggleButton.isChecked()){
 
 
-                    if(provider==null){
-
-                        
+                    if(provider==null || map==null){
                         provider.setMap(map);
                         placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,BufferDistance,0,getResources().getString(R.string.google_map_key));
                         //placeList=provider.getPlaceList();
                         changeState();
+
+                        Toast.makeText(getActivity(),"Please select navbar before filter",Toast.LENGTH_SHORT).show();
 
                         //hideProgressDialog();
                     }
@@ -439,14 +458,18 @@ public class mapFragment extends Fragment {
                         Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
                         provider.clearMap();
                     }
-
                     changeState();
+                    //hideProgressDialog();
 
 
                 }
             }
         });
 
+
+
+//        provider.setMap(map);
+//        placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, 0, getResources().getString(R.string.google_map_key));
 
 
         return view;
@@ -569,24 +592,20 @@ public class mapFragment extends Fragment {
 
     public void showList(View v){
         if(placeList!=null) {
-            Toast.makeText(getActivity(),"list present ",Toast.LENGTH_SHORT).show();
-            listAdapter = new adapter(placeList);
-            Toast.makeText(getActivity(),"adapter working properly ",Toast.LENGTH_SHORT).show();
-            RecyclerView k = view.findViewById(R.id.listOfplaces);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(k.getContext(), LinearLayoutManager.VERTICAL, false);
-            k.setLayoutManager(linearLayoutManager);
 
-            k.setAdapter(listAdapter);
-
-            listAdapter.setListener(new adapter.Listener() {
-
-                public void onClick(int p) {
+            FragmentTransaction ft =  getActivity().getSupportFragmentManager().beginTransaction();
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 
 
-                }
-            });
-            bottomSheetBehavior.setDraggable(true);
-           bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            listFragment fg= new listFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("list", (Serializable) placeList);
+            fg.setArguments(bundle);
+
+            ft.replace(R.id.frame,fg);
+            ft.addToBackStack(null);
+            ft.commit();
+
         }
         else{
             Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
@@ -594,6 +613,7 @@ public class mapFragment extends Fragment {
 
 
     }
+
 
     public void showDialog(){
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -614,10 +634,12 @@ public class mapFragment extends Fragment {
         if(requestCode == 1234 && resultCode == Activity.RESULT_OK){
             ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String match=matches.get(0);
-           placeList= provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,8,match,getResources().getString(R.string.google_map_key));
+            placeList= provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,8,match,getResources().getString(R.string.google_map_key));
 
         }
     }
+
+
 
 
 

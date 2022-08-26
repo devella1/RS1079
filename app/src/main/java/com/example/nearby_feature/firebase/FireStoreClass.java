@@ -7,6 +7,9 @@ import androidx.annotation.NonNull;
 
 import com.example.nearby_feature.activities.Missing_banks;
 import com.example.nearby_feature.newPlace;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -36,13 +39,13 @@ public class FireStoreClass {
         missingBank.put("Desc", descripton);
         missingBank.put("lat", latitude);
         missingBank.put("lon", longitude);
-        missingBank.put("type", type);
+
 
 
 
 
         if(isAdmin){
-            db.collection("dataset")
+            db.collection(type)
                     .add( missingBank)
                     .addOnSuccessListener(
                             activity.addSuccess()
@@ -110,6 +113,40 @@ public class FireStoreClass {
                 });
         Log.d("TAG", String.valueOf(ds.size()));
         return ds;
+    }
+
+
+    public static void addToFav(String currentUserID ){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+//        db.collection("favs").doc()
+//                .get()
+//                .then(function(doc) {
+//            if (doc.exists) {
+//                console.log("Document data:", doc.data());
+//            } else {
+//                // doc.data() will be undefined in this case
+//                console.log("No such document!");
+//            }
+//        }).catch(function(error) {
+//            console.log("Error getting document:", error);
+//        });
+
+        db.collection("favs")
+                .whereEqualTo("userId", currentUserID)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            }
+                        }
+
+                    }
+                });
     }
 
 

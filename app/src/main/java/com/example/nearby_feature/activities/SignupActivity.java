@@ -98,7 +98,7 @@ public class SignupActivity extends BaseActivity {
     }
 
     private void registerNewUser(PhoneAuthCredential credential) {
-       // progressBar.setVisibility(View.VISIBLE);
+        // progressBar.setVisibility(View.VISIBLE);
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {

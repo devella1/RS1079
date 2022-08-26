@@ -48,7 +48,7 @@ public class SigninActivity extends BaseActivity {
             public void onClick(View v) {
 
                 //Toast.makeText(SigninActivity.this, "Clicked sign up",
-                        //Toast.LENGTH_SHORT).show();
+                //Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(SigninActivity.this,SignupActivity.class);
                 startActivity(intent);
@@ -113,17 +113,17 @@ public class SigninActivity extends BaseActivity {
 
     private Boolean validateSigninForm(String email ,String password ) {
 
-            if(TextUtils.isEmpty(email)){
-                showErrorSnackBar("Please enter email");
-                return false;
-            }
-            else if(TextUtils.isEmpty(password)){
-                showErrorSnackBar("Please enter password");
-                return false;
-            }
-            else {
-                return true;
-            }
+        if(TextUtils.isEmpty(email)){
+            showErrorSnackBar("Please enter email");
+            return false;
+        }
+        else if(TextUtils.isEmpty(password)){
+            showErrorSnackBar("Please enter password");
+            return false;
+        }
+        else {
+            return true;
+        }
 
     }
 
