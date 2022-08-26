@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">जन धन दर्शक</string>
+    <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
+
+    <string name="atm">एटीएम</string>
+    <string name="nav_open">उघडा</string>
+    <string name="nav_close">बंद करा</string>
+    <string name="login_sidemenu">लॉगिन करा</string>
+    <string-array name="languagelist">
+        <item name="hindi">हिंदी</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">मराठी</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">हॅलो रिक्त तुकडा</string>
+    <string name="user_activity">वापरकर्ता क्रियाकलाप</string>
+    <string name="home">मुख्यपृष्ठ</string>
+    <string name="home_sidemenu">मुख्यपृष्ठ</string>
+    <string name="user_related_sidemenu">वापरकर्ता संबंधित</string>
+    <string name="feedback_sidemenu">आपला अभिप्राय</string>
+    <string name="missing_bank_suggestions_sidemenu">असमाविष्ट बँकांची नोंदणी</string>
+    <string name="disclaimer_and_help_sidemenu">अस्वीकरण आणि मदत</string>
+    <string name="help_sidemenu">मदत</string>
+    <string name="disclaimer_sidemenu">अस्वीकरण</string>
+    <string name="search_menu">शोधा</string>
+    <string name="language_dialogbox">भाषा</string>
+    <string name="settings_settings">सेटिंग्ज</string>
+
+    <string name="password">पासवर्ड</string>
+    <string name="email">ईमेल</string>
+
+    <string name="buffer">बफर अंतर</string>
+    <string name="language">भाषा</string>
+
+    <string name="filterByOpenNow">आता उघडले</string>
+    <string name="toggleOff">आता उघडा</string>
+    <string name="toggleOn">उघडा आता सक्षम</string>
+</resources>
