@@ -4,14 +4,14 @@
 
 
 <resources>
-    <string name="app_name">एप्लिकेशन का नाम</string>
+    <string name="app_name">जन धन दर्शक</string>
     <string name="google_map_key"> गूगल मानचित्र कुंजी</string>
     <string name="atm">एटीएम</string>
-    <string name="nav_open">एनएवी ओपन</string>
+    <string name="nav_open">खोलना</string>
     <string name="nav_close">नौसेना बंद</string>
-    <string name="buffer">Buffer Distance</string>
-    <string name="language">Language</string>
-
+    <string name="buffer">बंद करना</string>
+    <string name="language">भाषा</string>
+    <string name="login_sidemenu">लॉग इन</string>
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
@@ -31,5 +31,10 @@
     <string name="search_menu">तलाश</string>
     <string name="language_dialogbox">भाषा</string>
     <string name="settings_settings">सेटिंग्स</string>
+    <string name="password">पासवर्ड पी</string>
+    <string name="email">ईमेल पी</string>
+    <string name="filterByOpenNow">अभी खुला</string>
+    <string name="toggleOff">अब खोलो</string>
+    <string name="toggleOn">अभी खोलें सक्षम</string>
 
 </resources>

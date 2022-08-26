@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string name="app_name">જન ધન દર્શક</string>
+    <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
+
+    <string name="atm">એટીએમ</string>
+    <string name="nav_open">ખુલ્લા</string>
+    <string name="nav_close">બંધ</string>
+    <string name="login_sidemenu">લોગિન</string>
+    <string-array name="languagelist">
+        <item name="hindi">HINDI</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">MARATHI</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">હેલો ખાલી ટુકડો</string>
+    <string name="user_activity">વપરાશકર્તા પ્રવૃત્તિ</string>
+    <string name="home">ઘર</string>
+    <string name="home_sidemenu">ઘર</string>
+    <string name="user_related_sidemenu">વપરાશકર્તા સંબંધિત</string>
+    <string name="feedback_sidemenu">પ્રતિસાદ</string>
+    <string name="missing_bank_suggestions_sidemenu">બેંક સૂચનો ખૂટે છે</string>
+    <string name="disclaimer_and_help_sidemenu">અસ્વીકરણ અને મદદ</string>
+    <string name="help_sidemenu">મદદ</string>
+    <string name="disclaimer_sidemenu">અસ્વીકરણ</string>
+    <string name="search_menu">શોધ</string>
+    <string name="language_dialogbox">ભાષા</string>
+    <string name="settings_settings">સેટિંગ્સ</string>
+
+    <string name="password">પાસવર્ડ</string>
+    <string name="email">ઇમેઇલ</string>
+
+    <string name="buffer">બફર અંતર</string>
+    <string name="language">ભાષા</string>
+
+    <string name="filterByOpenNow">હવે ખોલ્યું</string>
+    <string name="toggleOff">હવે ખોલો</string>
+    <string name="toggleOn">ઓપન હવે સક્ષમ છે</string>
+</resources>

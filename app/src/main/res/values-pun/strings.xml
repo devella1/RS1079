@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">ਜਨ ਧਨ ਦਰਸ਼ਕ</string>
+    <string name="google_map_key">ਗੂਗਲ ਮੈਪ ਕੁੰਜੀ</string>
+
+    <string name="atm">ਏਟੀਐਮ </string>
+    <string name="nav_open">ਖੁੱਲਾ</string>
+    <string name="nav_close">ਬੰਦ ਕਰੋ</string>
+    <string name="login_sidemenu">ਲੌਗਇਨ </string>
+    <string-array name="languagelist">
+        <item name="hindi">HINDI</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">MARATHI</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">ਹੈਲੋ ਖਾਲੀ ਟੁਕੜਾ</string>
+    <string name="user_activity">ਉਪਭੋਗਤਾ ਦੀ ਗਤੀਵਿਧੀ</string>
+    <string name="home">ਘਰ</string>
+    <string name="home_sidemenu">ਘਰ</string>
+    <string name="user_related_sidemenu">ਉਪਭੋਗਤਾ-ਸਬੰਧਤ</string>
+    <string name="feedback_sidemenu">ਸੁਝਾਅ</string>
+    <string name="missing_bank_suggestions_sidemenu">ਗੁੰਮ ਬੈਂਕ ਸੁਝਾਅ</string>
+    <string name="disclaimer_and_help_sidemenu">ਬੇਦਾਅਵਾ ਅਤੇ ਮਦਦ</string>
+    <string name="help_sidemenu">ਮਦਦ</string>
+    <string name="disclaimer_sidemenu">ਬੇਦਾਅਵਾ</string>
+    <string name="search_menu">ਖੋਜ</string>
+    <string name="language_dialogbox">ਭਾਸ਼ਾ</string>
+    <string name="settings_settings">ਸੈਟਿੰਗਾਂ </string>
+
+    <string name="password">ਪਾਸਵਰਡ</string>
+    <string name="email">ਈ - ਮੇਲ</string>
+
+    <string name="buffer">ਬਫਰ ਦੂਰੀ</string>
+    <string name="language">ਭਾਸ਼ਾ</string>
+
+    <string name="filterByOpenNow">ਹੁਣ ਖੋਲ੍ਹਿਆ ਗਿਆ ਹੈ</string>
+    <string name="toggleOff">ਹਹੁਣ ਖੋਲ੍ਹੋ</string>
+    <string name="toggleOn">ਖੋਲ੍ਹੋ ਹੁਣ ਸਮਰੱਥ ਹੈ</string>
+</resources>
