@@ -24,11 +24,11 @@
     </string-array>
 
     <string-array name="themeslist">
-        <item name ="standard">STANDARD</item>
-        <item name ="dark">DARK</item>
-        <item name ="aubergine">AUBERGINE</item>
-        <item name ="retro">RETRO</item>
-        <item name ="silver">SILVER</item>
+        <item name="standard">STANDARD</item>
+        <item name="dark">DARK</item>
+        <item name="aubergine">AUBERGINE</item>
+        <item name="retro">RETRO</item>
+        <item name="silver">SILVER</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->

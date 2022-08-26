@@ -90,6 +90,11 @@ public class MainActivity extends BaseActivity {
                         startActivity(intent);
                         drawerLayout.closeDrawer(GravityCompat.START);
                         return true;
+                    case R.id.help:
+                        intent = new Intent(MainActivity.this,help.class);
+                        startActivity(intent);
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        return true;
                     default:
                         mapFragment a1=new mapFragment();
                         getSupportFragmentManager()

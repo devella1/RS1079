@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#11DF48"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="346dp"
+        android:layout_height="488dp"
+        android:paddingTop="10dp"
+        android:layout_gravity="center"
+
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:srcCompat="@drawable/buffer"
+        tools:layout_editor_absoluteX="40dp" />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </Space>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:text="We can adjust the custom distance,change language and theme by clicking on the settings icon "
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1" >
+    </Space>
+
+</LinearLayout>
