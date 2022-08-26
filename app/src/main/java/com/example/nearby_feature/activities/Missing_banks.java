@@ -33,7 +33,7 @@ public class Missing_banks extends BaseActivity {
     public  String st_lon;
 
 
-  // MissingBanksMapFragment fragment;
+    // MissingBanksMapFragment fragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +41,7 @@ public class Missing_banks extends BaseActivity {
         btn_submit=findViewById(R.id.btn_submit);
         btn_chooseMap = findViewById(R.id.btn_choseMap);
 
-         //Initialize fragment
+        //Initialize fragment
 //        fragment=new MissingBanksMapFragment();
 //
 //         //Open fragment
@@ -84,8 +84,8 @@ public class Missing_banks extends BaseActivity {
             public void onClick(View view) {
 
                 if(st_lat!=null && st_lon!=null){
-                   // Toast.makeText(Missing_banks.this, "All Ok",
-                            //Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(Missing_banks.this, "All Ok",
+                    //Toast.LENGTH_SHORT).show();
 
                     registerBank();
                 }

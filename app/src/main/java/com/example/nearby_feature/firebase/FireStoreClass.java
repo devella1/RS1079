@@ -114,8 +114,8 @@ public class FireStoreClass {
         Log.d("TAG", String.valueOf(ds.size()));
         return ds;
     }
-    
-    
+
+
     public static void addToFav(String currentUserID ){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

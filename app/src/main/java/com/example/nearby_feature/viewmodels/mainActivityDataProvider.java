@@ -24,14 +24,12 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,12 +53,8 @@ public class mainActivityDataProvider  {
     private Double currentLong;
     private String placeTypeList[] = {"atm", "bank", "post_office"};
     private int selected;
-
     private int radius ;
     private List<place> placeList;
-
-
-
 
 
 
@@ -90,7 +84,7 @@ public class mainActivityDataProvider  {
     }
 
     public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
-       // obj.showProgressDialog("Please Wait");
+        // obj.showProgressDialog("Please Wait");
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
         this.currentLat=currentLat;
         this.currentLong=currentLong;
@@ -168,7 +162,7 @@ public class mainActivityDataProvider  {
 
         protected void onPostExecute(List<place> arr) {
 
-            map.clear();
+            //map.clear();
             StringBuilder st=new StringBuilder();
             ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);
@@ -406,6 +400,3 @@ public class mainActivityDataProvider  {
     }
 
 }
-
-
-
