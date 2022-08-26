@@ -213,6 +213,9 @@ public class mapFragment extends Fragment {
 
                 a.show(fragmentManager,"Dialog Box");
 
+               // FireStoreClass.addToFav("sitTozVwBzQ5NjLZYDGuFGnwQQD3","1236");
+
+
 
 
 
