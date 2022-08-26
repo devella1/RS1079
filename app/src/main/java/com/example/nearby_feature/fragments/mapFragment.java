@@ -229,8 +229,18 @@ public class mapFragment extends Fragment {
 
                 }
 
+                ArrayList<String> dbTypes = new ArrayList<String>() {
+                    {
+                        add("Atm");
+                        add("Bank");
+                        add("PostOffice");
+                        add("Csc");
+                        add("BankMitra");
+                    }
+                };
+
                 provider.setMap(map);
-                provider.plot();
+                provider.plot(currLocation,1000,dbTypes.get(selected-1));
 
 
 //

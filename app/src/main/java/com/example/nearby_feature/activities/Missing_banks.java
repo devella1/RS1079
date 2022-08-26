@@ -3,6 +3,7 @@ package com.example.nearby_feature.activities;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -115,15 +116,26 @@ public class Missing_banks extends BaseActivity {
 
         String type = "Atm";
 
-        if(rbAtm.isSelected()){
+        if(rbAtm.isChecked()){
             type="Atm";
+            Log.d("Col", "Atm");
         }
-        else if(rbBank.isSelected()){
+        else if(rbBank.isChecked()){
             type="Bank";
+
         }
-        else if(rbBnkMitra.isSelected())type="Bank Mitra";
-        else if(rbPo.isSelected())type="Post Office";
-        else if(rbCsc.isSelected())type="Csc";
+        else if(rbBnkMitra.isChecked())
+        {
+            type="BankMitra";
+
+        }
+        else if(rbPo.isChecked()){
+            type="PostOffice";
+        }
+        else if(rbCsc.isChecked()){
+            type="Csc";
+            Log.d("Col", "CSC");
+        }
 
 
         String st_name = name.getText().toString();
@@ -139,6 +151,7 @@ public class Missing_banks extends BaseActivity {
         else if(Objects.equals(curUserId, "RQqQa4QlEmak5Q7ZUX1abvGLxV22")){
             Toast.makeText(this,"admin",Toast.LENGTH_SHORT).show();
             FireStoreClass.addMissingBank(st_name,st_desc,latitude,longitude,type,this,true);
+            Log.d("Col", type);
         }
         else{
             Toast.makeText(this,"user",Toast.LENGTH_SHORT).show();

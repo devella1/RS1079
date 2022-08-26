@@ -1,5 +1,8 @@
 package com.example.nearby_feature.viewmodels;
 
+import static java.lang.Math.cos;
+import static java.lang.Math.toRadians;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -24,6 +27,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -38,6 +42,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class mainActivityDataProvider  {
 
@@ -256,7 +261,7 @@ public class mainActivityDataProvider  {
         double lngDistance = Math.toRadians(userLng - venueLng);
 
         double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
-                + Math.cos(Math.toRadians(userLat)) * Math.cos(Math.toRadians(venueLat))
+                + cos(Math.toRadians(userLat)) * cos(Math.toRadians(venueLat))
                 * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
 
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
@@ -266,12 +271,49 @@ public class mainActivityDataProvider  {
         return dist;
     }
 
-    public void plot(){
-       map.clear();
+
+
+    public List<Double> Range(double mylon, double mylat, double Buffer){
+
+        List<Double> latLonRange = new ArrayList<Double>();
+
+        double r  = 6371000,pie = 3.142, dlon = 180*Buffer/(pie*r*cos(toRadians(mylon))), dlat = 180*Buffer/(pie*r);
+
+        latLonRange.add(mylat - dlat);
+        latLonRange.add(mylat + dlat);
+
+        latLonRange.add(mylon - dlon);
+        latLonRange.add(mylon + dlon);
+
+        return latLonRange;
+    }
+
+
+    public void plot(LatLng curLocation,double buffer,String type){
+        map.clear();
         List<newPlace> ds = new ArrayList<>();
+        List<Double> latLonRange = new ArrayList<Double>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("dataset")
+        latLonRange = Range(curLocation.longitude,curLocation.latitude,buffer);
+
+        Log.d("TA", String.valueOf(curLocation.latitude));
+        Log.d("TA", String.valueOf(curLocation.longitude));
+
+        //latitude
+        Log.d("TAG", String.valueOf(latLonRange.get(0)));
+        Log.d("TAG", String.valueOf(latLonRange.get(1)));
+
+        //longitude
+        Log.d("TAG", String.valueOf(latLonRange.get(2)));
+        Log.d("TAG", String.valueOf(latLonRange.get(3)));
+
+        Query capitalCities = db.collection("cities").whereEqualTo("capital", true);
+
+        List<Double> finalLatLonRange = latLonRange;
+        db.collection(type)
+                .whereGreaterThanOrEqualTo("lat", String.valueOf(latLonRange.get(0)))
+                .whereLessThanOrEqualTo("lat",String.valueOf(latLonRange.get(1)))
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -281,10 +323,14 @@ public class mainActivityDataProvider  {
 //                                newPlace np =document.toObject(newPlace.class);
 //                                ds.add(np);
 
-                                newPlace np =new newPlace("hello","31.25809249169579","75.70791196078062","24/7","Atm");
-                                ds.add(np);
+                                newPlace np1 =new newPlace(String.valueOf(document.getData().get("Name")),String.valueOf(document.getData().get("lat")),
+                                        String.valueOf(document.getData().get("lon")),String.valueOf(document.getData().get("desc")),String.valueOf(document.getData().get("type")));
+                                ds.add(np1);
+
+//                                newPlace np =new newPlace("hello","31.25809249169579","75.70791196078062","24/7","Atm");
+//                                ds.add(np);
                                 Log.d("TAG", document.getId() + " => " + document.getData());
-                                Log.d("TAG", np.desc);
+                                Log.d("TAG", np1.desc);
                                 Log.d("TAG", String.valueOf(ds.size()));
 
                                 //Toast.makeText(getActivity(),ds.size(), Toast.LENGTH_SHORT).show();
@@ -293,6 +339,18 @@ public class mainActivityDataProvider  {
 
                             //code here
                             for(int i=0;i<ds.size();i++){
+
+                                Log.d("Lon", String.valueOf(ds.get(i).lon));
+                                Log.d("Lon", String.valueOf(finalLatLonRange.get(2)));
+                                Log.d("Lon", String.valueOf(finalLatLonRange.get(3)));
+
+                                if((Double.parseDouble(ds.get(i).lon)>finalLatLonRange.get(2) && Double.parseDouble(ds.get(i).lon)<finalLatLonRange.get(3))){
+
+                                }
+                                else{
+                                    continue;
+                                }
+
                                 newPlace p= ds.get(i);
                                 double lat= Double.parseDouble(p.lat);
                                 double lng= Double.parseDouble(p.lon);
