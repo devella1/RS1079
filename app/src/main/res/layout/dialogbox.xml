@@ -63,6 +63,7 @@
         android:id="@+id/languages"/>
 
     <Spinner
+        android:id="@+id/Spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/languages"
@@ -70,6 +71,28 @@
         android:layout_marginTop="5dp"
         android:padding="10dp"
         />
+
+    <TextView
+        android:id="@+id/TextViewThemes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Spinner"
+        android:layout_marginTop="10dp"
+        android:background="@color/darkgreen"
+        android:padding="10dp"
+        android:text="Map Themes"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/Themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextViewThemes"
+        android:layout_marginTop="5dp"
+        android:entries="@array/themeslist"
+        android:padding="10dp" />
 
 
 

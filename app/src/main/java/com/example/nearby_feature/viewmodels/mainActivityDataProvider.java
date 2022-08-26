@@ -40,7 +40,13 @@ public class mainActivityDataProvider  {
     private String placeTypeList[] = {"atm", "bank", "post_office"};
     private int selected;
 
+    private int radius ;
     private List<place> placeList;
+
+
+
+
+
 
 
 
@@ -55,31 +61,47 @@ public class mainActivityDataProvider  {
         this.map=map;
     }
     //String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius=500000    " + "&types=" + placeTypeList[i] + "&sensor=true" + "&key=" + getResources().getString(R.string.google_map_key);
-    public void findPlacesAccordingToDistance(double currentLat,double currentLong,int radius, int  type,String key){
+    public List<place> findPlacesAccordingToDistance(double currentLat, double currentLong, int radius, int  type, String key){
         //obj.showProgressDialog("Please Wait");
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
 
+        return placeList;
     }
 
-    public void filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
+    public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
        // obj.showProgressDialog("Please Wait");
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key+"&opennow";
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
+        return placeList;
     }
 
-    public void findPlacesAccordingToKeyword(double currentLat,double currentLong,int radius , int type , String keyword , String key ){
+    public List<place> findPlacesAccordingToKeyword(double currentLat, double currentLong, int radius , int type , String keyword , String key ){
         String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&keyword=" +keyword+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
         this.selected=type+1;
+        this.radius=radius;
         new PlaceTask().execute(url);
+        return placeList;
+    }
+
+    public List<place> findOpenPlacesAccordingToKeyword(double currentLat, double currentLong,int radius , int type , String keyword,String key){
+        String url="https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&keyword=" +keyword+ "&sensor=true" + "&key=" + key+"&opennow";
+        this.currentLat=currentLat;
+        this.currentLong=currentLong;
+        this.selected=type+1;
+        this.radius=radius;
+        new PlaceTask().execute(url);
+        return placeList;
     }
 
 
@@ -120,6 +142,7 @@ public class mainActivityDataProvider  {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            placeList=mapList;
             return mapList;
         }
 
@@ -147,6 +170,7 @@ public class mainActivityDataProvider  {
                 MarkerOptions options= new MarkerOptions();
                 options.position(latLng);
                 options.title(name);
+
 
                 if(selected==1)
                 {
@@ -195,7 +219,7 @@ public class mainActivityDataProvider  {
             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
             map.animateCamera(cu);
 //            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-            CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
+            CircleOptions circly = new CircleOptions().center(currLocation).radius(radius).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
             Circle circle=map.addCircle(circly);
 
             //obj.hideProgressDialog();

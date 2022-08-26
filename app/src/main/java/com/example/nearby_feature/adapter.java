@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +23,15 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder>{
     }
     public adapter(List<place> a){
         data=a;
+    }
+
+    public void filterList(ArrayList<place> filterllist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        data = filterllist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -47,9 +57,12 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder>{
     public void onBindViewHolder(adapter.ViewHolder holder , @SuppressLint("RecyclerView") int position){
         place a= (place)data.get(position);
         CardView c=holder.cardView;
-        
+        //place a=new place("myplace","12.33","12.33","dkdk
         TextView q=c.findViewById(R.id.placeName);
-        q.setText(a.getName());
+        q.setText((String)a.getName());
+
+        TextView m=c.findViewById(R.id.placeAddress);
+        m.setText("mmm");
         
         c.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,22 +73,7 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder>{
             }
         });
 
-        ImageButton direction=c.findViewById(R.id.placeDirections);
-        
-        ImageButton call= c.findViewById(R.id.placeCall);
-        direction.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
-        
-        call.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-            }
-        });
+
 
 
 

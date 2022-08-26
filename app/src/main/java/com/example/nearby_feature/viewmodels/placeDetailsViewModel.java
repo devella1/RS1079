@@ -19,8 +19,8 @@ import com.google.android.libraries.places.api.net.PlacesClient;
 import java.util.Arrays;
 import java.util.List;
 
-public class placeDetailsViewModel extends ViewModel {
-    Place placeDetail;
+public class placeDetailsViewModel {
+    public Place placeDetail;
     public void getDetails(String id , PlacesClient client, ImageView placePhoto){
         List<Place.Field> fieldList= Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.PHONE_NUMBER, Place.Field.RATING, Place.Field.USER_RATINGS_TOTAL, Place.Field.ID, Place.Field.LAT_LNG);
 

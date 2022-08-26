@@ -2,16 +2,20 @@ package com.example.nearby_feature.fragments;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Context;
@@ -21,6 +25,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 import com.example.nearby_feature.JsonParser;
@@ -28,6 +35,8 @@ import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
 import com.example.nearby_feature.activities.MapMissingBank;
+import com.example.nearby_feature.adapter;
+import com.example.nearby_feature.detailActivity;
 import com.example.nearby_feature.place;
 import com.example.nearby_feature.viewmodels.mainActivityDataProvider;
 import com.example.nearby_feature.viewmodels.mainActivityModel;
@@ -42,6 +51,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -50,6 +60,9 @@ import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,33 +84,174 @@ public class mapFragment extends Fragment {
     FusedLocationProviderClient fusedLocationProviderClient;
    // public Dialog mProgressDialog;
     ToggleButton toggleButton;
-    double currentLat = 0, currentLong = 0;
+    public static double currentLat = 0, currentLong = 0;
     private final int atm=1;
     private final int bank=2;
     private final int post=3;
     private final int csc=4;
     private final int bankMitra=5;
-    private int selected=1;
+    public static  int selected=1;
     SupportMapFragment supportMapFragment;
-    GoogleMap map;
+    public static GoogleMap map;
     private View view;
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
-    private List<place> placeList;
+    public static  List<place> placeList;
     private mainActivityModel model;
-    private mainActivityDataProvider provider;
-    private LatLng currLocation;
+    public static  mainActivityDataProvider provider=new mainActivityDataProvider();
+    public static  LatLng currLocation;
     private String deviceLanguage;
+    private MaterialButton showListButton;
+    private Button showFirstButton;
+    private adapter listAdapter;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private FloatingActionButton setting;
+    private FloatingActionButton voiceSearch;
+    private FloatingActionButton textSearch;
+    public static int BufferDistance=1000;
+    public static String theme="STANDARD";
+    private EditText editTextForSearch;
+    private Button searchButton;
+    dialogFragment a=new dialogFragment();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Initialize view
         view=inflater.inflate(R.layout.fragment_map, container, false);
 
+        //provider.setMap(map);
         deviceLanguage = Locale.getDefault().getLanguage();
         //View v=inflater.inflate(R.layout.fragment_map,container,false);
+        if(provider!=null) {
+            placeList = provider.getPlaceList();
+        }
 
+        setting=view.findViewById(R.id.settings);
+        voiceSearch=view.findViewById(R.id.voicesearch);
+        textSearch=view.findViewById(R.id.textsearch);
+        editTextForSearch=view.findViewById(R.id.keyword);
+        searchButton=view.findViewById(R.id.searchButton);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String text=(String)editTextForSearch.getText().toString();
+                String[] arr=text.split(" ");
+                if(arr.length>=1 && arr[0]!="") {
+                    placeList = provider.findPlacesAccordingToKeyword(currentLat, currentLong, BufferDistance, 8, arr[0], getResources().getString(R.string.google_map_key));
+                    editTextForSearch.setVisibility(View.GONE);
+                    searchButton.setVisibility(View.GONE);
+                }
+                else{
+                    Toast.makeText(getActivity(),"Enter your keywords ",Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+        voiceSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startVoiceRecognitionActivity();
+            }
+        });
+
+        textSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextForSearch.setVisibility(view.getVisibility());
+                searchButton.setVisibility(view.getVisibility());
+            }
+        });
+
+
+
+
+
+        setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+
+                a.show(fragmentManager,"Dialog Box");
+
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+
+        showListButton= view.findViewById(R.id.showList);
+        showFirstButton=view.findViewById(R.id.showfirstItem);
+        showFirstButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(placeList!=null){
+
+                    Intent a=new Intent(getActivity(), detailActivity.class);
+                    a.putExtra("placeId",placeList.get(0).getId());
+                    a.putExtra("lat",placeList.get(0).getLat());
+                    a.putExtra("lang",placeList.get(0).getLang());
+                    startActivity(a);
+                }
+
+            }
+        });
+
+
+
+        showListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(placeList!=null) {
+                    Toast.makeText(getActivity(),"list present ",Toast.LENGTH_SHORT).show();
+
+
+                   // listAdapter = new adapter(placeList);
+//                    Toast.makeText(getActivity(),placeList.get(0).getName(),Toast.LENGTH_SHORT).show();
+//                    RecyclerView k = view.findViewById(R.id.listOfplaces);
+//                    Toast.makeText(getActivity(),"linear layout set properly ",Toast.LENGTH_SHORT).show();
+//                    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+//                    Toast.makeText(getActivity(),"linear layout manager  set properly ",Toast.LENGTH_SHORT).show();
+//                    k.setAdapter(listAdapter);
+
+//            listAdapter.setListener(new adapter.Listener() {
+//
+//                public void onClick(int p) {
+//                /*
+//                Intent i=new Intent(CollegeActivity.this,CollegeDetails.class);
+//                if(check==0){
+//                    i.putExtra("selectedCollege",data.get(p));
+//                    startActivity(i);}
+//                else{
+//                    i.putExtra("selectedCollege",filteredlist.get(p));
+//                    startActivity(i);
+//                }
+//
+//
+//                 */
+//
+//                }
+//            });
+               //bottomSheetBehavior.setDraggable(true);
+             //  bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+                else{
+                    Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        //View v=view.findViewById(R.id.listOfplaces);
+        //bottomSheetBehavior=BottomSheetBehavior.from(v);
         model=new mainActivityModel();
         MeowBottomNavigation bn= view.findViewById(R.id.bottombar);
         bn.add(new MeowBottomNavigation.Model(atm, R.drawable.ic_baseline_atm_24));
@@ -125,10 +279,6 @@ public class mapFragment extends Fragment {
                     case atm:
 
                         selected=atm;
-
-//                        if(!model.getData(currLocation,"atm",1000,view.getContext(),map,deviceLanguage)){
-//                            Toast.makeText(view.getContext(),"not able to parse data",Toast.LENGTH_SHORT).show();
-//                        }
                         toggleButton.setChecked(false);
                         changeState();
                         break;
@@ -140,19 +290,19 @@ public class mapFragment extends Fragment {
                         break;
                     case csc:
                         name="hospital";
-                        selected=atm;
+                        selected=csc;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case post:
                         name="bank";
-                        selected=bank;
+                        selected=post;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
                     case bankMitra:
                         name="bankr";
-                        selected=bank;
+                        selected=bankMitra;
                         toggleButton.setChecked(false);
                         changeState();
                         break;
@@ -170,21 +320,20 @@ public class mapFragment extends Fragment {
 
 
 
-                mainActivityDataProvider dataProvider = new mainActivityDataProvider();
-                provider=dataProvider;
-                dataProvider.setMap(map);
+                
+               //provider.setMap(map);
 
                 if(selected<=3) {
-                    dataProvider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
-                    placeList=dataProvider.getPlaceList();
+                    placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
+
                 }
                 else if(selected==4){
-                    dataProvider.findPlacesAccordingToKeyword(currentLat,currentLong,30000,selected-1,"csc",getResources().getString(R.string.google_map_key));
-                    placeList=dataProvider.getPlaceList();
+                    placeList=provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,selected-1,"csc",getResources().getString(R.string.google_map_key));
+
                 }
                 else{
                     Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
-                    dataProvider.clearMap();
+                    provider.clearMap();
                 }
 
 
@@ -240,40 +389,6 @@ public class mapFragment extends Fragment {
         }
 
 
-
-        //editText=view.findViewById(R.id.edit_text);
-        //tv1= view.findViewById(R.id.tv1);
-        // tv2=view.findViewById(R.id.tv2);
-
-        //Initialize Places
-
-
-        // ----- edit text code over here
-
-       // Places.initialize(getActivity().getApplicationContext(), "AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM");
-
-        //Set EditText non focusable
-       /* editText.setFocusable(false);
-        editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //PlaceField List
-                // will have to upade this
-                List<Place.Field> fieldList= Arrays.asList(Place.Field.ADDRESS, Place.Field.NAME, Place.Field.OPENING_HOURS, Place.Field.PHONE_NUMBER, Place.Field.RATING, Place.Field.USER_RATINGS_TOTAL, Place.Field.ID);
-
-                //Create intent
-                Intent intent= new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fieldList).build(getActivity());
-
-                //Start activity result
-                startActivityForResult(intent, 100);
-            }
-        });
-        */
-
-
-
-
-
         toggleButton.setText(getResources().getString(R.string.toggleOff));
         toggleButton.setTextOff(getResources().getString(R.string.toggleOff));
         toggleButton.setTextOn(getResources().getString(R.string.toggleOff));
@@ -286,20 +401,26 @@ public class mapFragment extends Fragment {
 
 
                     if(provider==null){
-                       //showProgressDialog("please wait");
-//                    Toast.makeText(getActivity(), "Select first",
-//                            Toast.LENGTH_SHORT).show();
-                        //showProgressDialog(temp);
-                        mainActivityDataProvider dataProvider = new mainActivityDataProvider();
-                        provider=dataProvider;
-                        dataProvider.setMap(map);
-                        dataProvider.filterPlacesByOpenNow(currentLat,currentLong,5000,0,getResources().getString(R.string.google_map_key));
+
+                        
+                        provider.setMap(map);
+                        placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,BufferDistance,0,getResources().getString(R.string.google_map_key));
+                        //placeList=provider.getPlaceList();
                         changeState();
+
                         //hideProgressDialog();
                     }
                     else{
-                        //showProgressDialog("please wait");
-                        provider.filterPlacesByOpenNow(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                        if(selected<=3) {
+                            placeList = provider.filterPlacesByOpenNow(currentLat, currentLong, BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
+                        }
+                        else if(selected==4){
+                            placeList= provider.findOpenPlacesAccordingToKeyword(currentLat, currentLong, BufferDistance, selected - 1,"csc", getResources().getString(R.string.google_map_key));
+                        }
+                        else{
+                            Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
+                            provider.clearMap();
+                        }
                         changeState();
                         //hideProgressDialog();
                     }
@@ -308,11 +429,18 @@ public class mapFragment extends Fragment {
 
                 }
                 else{
-                    //showProgressDialog("please wait");
-                    provider.findPlacesAccordingToDistance(currentLat,currentLong,5000,selected-1,getResources().getString(R.string.google_map_key));
+                    if(selected<=3) {
+                        placeList = provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+                    }
+                    else if(selected==4){
+                        placeList= provider.findPlacesAccordingToKeyword(currentLat, currentLong, 5000, selected - 1,"csc", getResources().getString(R.string.google_map_key));
+                    }
+                    else{
+                        Toast.makeText(getActivity(),"no data to show ",Toast.LENGTH_SHORT).show();
+                        provider.clearMap();
+                    }
 
                     changeState();
-                    //hideProgressDialog();
 
 
                 }
@@ -371,6 +499,22 @@ public class mapFragment extends Fragment {
                         public void onMapReady(@NonNull GoogleMap googleMap) {
 
                             map =googleMap;
+                            provider.setMap(map);
+                            if(theme.equals("STANDARD")) {
+                                boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.standard_style_json));
+                            }
+                            else if(theme.equals("DARK")){
+                                boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.dark_style_json));
+                            }
+                            else if(theme.equals("RETRO")){
+                                boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.retro_style_json));
+                            }
+                            else if(theme.equals("SILVER")){
+                                boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.silver_style_json));
+                            }
+                            else{
+                                boolean success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity(), R.raw.aubergine_style_json));
+                            }
                             currLocation=new LatLng(currentLat,currentLong);
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
                             CircleOptions circly = new CircleOptions().center(currLocation).radius(1000).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.teal_700); // in meters
@@ -422,6 +566,60 @@ public class mapFragment extends Fragment {
 //    public void hideProgressDialog() {
 //        mProgressDialog.dismiss();
 //    }
+
+    public void showList(View v){
+        if(placeList!=null) {
+            Toast.makeText(getActivity(),"list present ",Toast.LENGTH_SHORT).show();
+            listAdapter = new adapter(placeList);
+            Toast.makeText(getActivity(),"adapter working properly ",Toast.LENGTH_SHORT).show();
+            RecyclerView k = view.findViewById(R.id.listOfplaces);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(k.getContext(), LinearLayoutManager.VERTICAL, false);
+            k.setLayoutManager(linearLayoutManager);
+
+            k.setAdapter(listAdapter);
+
+            listAdapter.setListener(new adapter.Listener() {
+
+                public void onClick(int p) {
+
+
+                }
+            });
+            bottomSheetBehavior.setDraggable(true);
+           bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+        else{
+            Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+    public void showDialog(){
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        dialogFragment a=new dialogFragment();
+        a.show(fragmentManager,"Dialog Box");
+    }
+
+
+    private void startVoiceRecognitionActivity(){
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,"");
+        startActivityForResult(intent,1234);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == 1234 && resultCode == Activity.RESULT_OK){
+            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            String match=matches.get(0);
+           placeList= provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,8,match,getResources().getString(R.string.google_map_key));
+
+        }
+    }
+
+
 
 
 
