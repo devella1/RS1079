@@ -81,8 +81,8 @@ public class dialogFragment extends DialogFragment {
                 mapFragment.BufferDistance=bufferDistance;
 
                 if(mapFragment.selected<=3) {
-                    mapFragment.placeList=mapFragment.provider.findPlacesAccordingToDistance(mapFragment.currentLat, mapFragment.currentLong, mapFragment.BufferDistance, mapFragment.selected - 1, getResources().getString(R.string.google_map_key));
-
+                    mapFragment.provider.findPlacesAccordingToDistance(mapFragment.currentLat, mapFragment.currentLong, mapFragment.BufferDistance, mapFragment.selected - 1, getResources().getString(R.string.google_map_key));
+                    mapFragment.placeList = mapFragment.provider.getPlaceList();
                 }
                 else if(mapFragment.selected==4){
                     mapFragment.placeList=mapFragment.provider.findPlacesAccordingToKeyword(mapFragment.currentLat,mapFragment.currentLong,mapFragment.BufferDistance,mapFragment.selected-1,"csc",getResources().getString(R.string.google_map_key));

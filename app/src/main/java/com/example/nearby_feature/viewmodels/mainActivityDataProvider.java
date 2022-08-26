@@ -4,6 +4,7 @@ import static java.lang.Math.cos;
 import static java.lang.Math.toRadians;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -13,6 +14,8 @@ import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
+import com.example.nearby_feature.activities.splashScreen;
+import com.example.nearby_feature.firebase.FireStoreClass;
 import com.example.nearby_feature.newPlace;
 import com.example.nearby_feature.place;
 import com.google.android.gms.maps.CameraUpdate;
@@ -26,6 +29,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.model.Place;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -58,10 +62,16 @@ public class mainActivityDataProvider  {
 
 
 
-
+    public List<place> getPlace(){
+        return placeList;
+    }
 
     public void clearMap(){
-        map.clear();
+
+
+            map.clear();
+
+
     }
 
     public List<place> getPlaceList(){
@@ -78,9 +88,19 @@ public class mainActivityDataProvider  {
         this.currentLong=currentLong;
         this.selected=type+1;
         this.radius=radius;
+        Log.d("MEO", "before");
         new PlaceTask().execute(url);
+        Log.d("MEO", "after");
+        if(placeList==null){
+            Log.d("MEO", "oops null");
+        }
+        else{
+            Log.d("MEO", String.valueOf(placeList.size()));
+        }
+
 
         return placeList;
+
     }
 
     public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
@@ -90,7 +110,17 @@ public class mainActivityDataProvider  {
         this.currentLong=currentLong;
         this.selected=type+1;
         this.radius=radius;
+        Log.d("MEO", "before");
+
         new PlaceTask().execute(url);
+        Log.d("MEO", "after");
+        if(placeList==null){
+            Log.d("MEO", "oops null");
+        }
+        else{
+            Log.d("MEO", String.valueOf(placeList.size()));
+        }
+
         return placeList;
     }
 
@@ -162,7 +192,7 @@ public class mainActivityDataProvider  {
 
         protected void onPostExecute(List<place> arr) {
 
-            //map.clear();
+            map.clear();
             StringBuilder st=new StringBuilder();
             ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);

@@ -140,7 +140,7 @@ public class mapFragment extends Fragment {
     public static  LatLng currLocation;
     private String deviceLanguage;
     private MaterialButton showListButton;
-    private Button showFirstButton;
+    //private Button showFirstButton;
     private adapter listAdapter;
     private BottomSheetBehavior bottomSheetBehavior;
     private FloatingActionButton setting;
@@ -215,37 +215,26 @@ public class mapFragment extends Fragment {
 
                // FireStoreClass.addToFav("sitTozVwBzQ5NjLZYDGuFGnwQQD3","1236");
 
-
-
-
-
-
-
-
-
-
-
-
             }
         });
 
 
         showListButton= view.findViewById(R.id.showList);
-        showFirstButton=view.findViewById(R.id.showfirstItem);
-        showFirstButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(placeList!=null){
-
-                    Intent a=new Intent(getActivity(), detailActivity.class);
-                    a.putExtra("placeId",placeList.get(0).getId());
-                    a.putExtra("lat",placeList.get(0).getLat());
-                    a.putExtra("lang",placeList.get(0).getLang());
-                    startActivity(a);
-                }
-
-            }
-        });
+//        showFirstButton=view.findViewById(R.id.showfirstItem);
+//        showFirstButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(placeList!=null){
+//
+//                    Intent a=new Intent(getActivity(), detailActivity.class);
+//                    a.putExtra("placeId",placeList.get(0).getId());
+//                    a.putExtra("lat",placeList.get(0).getLat());
+//                    a.putExtra("lang",placeList.get(0).getLang());
+//                    startActivity(a);
+//                }
+//
+//            }
+//        });
 
         showListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -346,8 +335,8 @@ public class mapFragment extends Fragment {
 
 
                 if(selected<=3) {
-                    placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong,  BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
-
+                   provider.findPlacesAccordingToDistance(currentLat, currentLong,  BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
+                    placeList=provider.getPlace();
                 }
                 else if(selected==4){
                     placeList=provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,selected-1,"csc",getResources().getString(R.string.google_map_key));
@@ -452,7 +441,8 @@ public class mapFragment extends Fragment {
                 }
                 else{
                     if(selected<=3) {
-                        placeList = provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+                         provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+                        placeList = provider.getPlaceList();
                     }
                     else if(selected==4){
                         placeList= provider.findPlacesAccordingToKeyword(currentLat, currentLong, 5000, selected - 1,"csc", getResources().getString(R.string.google_map_key));

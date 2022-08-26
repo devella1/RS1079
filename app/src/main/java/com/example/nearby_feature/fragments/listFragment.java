@@ -1,5 +1,6 @@
 package com.example.nearby_feature.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +16,10 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.example.nearby_feature.R;
+import com.example.nearby_feature.activities.MainActivity;
+import com.example.nearby_feature.activities.Missing_banks;
 import com.example.nearby_feature.adapter;
+import com.example.nearby_feature.detailActivity;
 import com.example.nearby_feature.place;
 
 import java.util.List;
@@ -59,6 +63,18 @@ public class listFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         listAdapter = new adapter(list_places);
         recyclerView.setAdapter(listAdapter);
+
+        adapter.setListener(new adapter.Listener() {
+            @Override
+            public void onClick(int p) {
+                Intent intent = new Intent(getActivity(), detailActivity.class);
+                intent.putExtra("placeId",list_places.get(p).getId());
+                intent.putExtra("lat",list_places.get(p).getLat());
+                intent.putExtra("lang",list_places.get(p).getLang());
+
+                startActivity(intent);
+            }
+        });
 
 //        EditText et_testing = view.findViewById(R.id.testing);
 //        et_testing.setText(list_places.get(0).getName());

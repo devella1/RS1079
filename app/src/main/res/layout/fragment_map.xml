@@ -155,20 +155,7 @@
         android:layout_marginRight="3dp"/>
 
 
-    <Button
-        android:id="@+id/showfirstItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
 
-        android:text="show first item"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        app:cornerRadius="20dp"
-        app:iconTint="@color/white"
-        app:layout_anchor="@+id/google_map"
-        app:layout_anchorGravity="bottom|start"
-        android:layout_marginBottom="60dp"
-        android:layout_marginRight="3dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
