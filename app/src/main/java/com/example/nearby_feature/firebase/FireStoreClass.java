@@ -12,10 +12,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -115,39 +120,80 @@ public class FireStoreClass {
         return ds;
     }
 
+//    public void setDocument(String currentUserID) {
+//
+//        Map<String, Object> city = new HashMap<>();
+//        city.put("name", "Los Angeles");
+//        city.put("state", "CA");
+//        city.put("country", "USA");
+//
+//        db.collection("cities").document("LA")
+//                .set(city)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Log.d(TAG, "DocumentSnapshot successfully written!");
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error writing document", e);
+//                    }
+//                });
 
-    public static void addToFav(String currentUserID ){
+//
+    public static void updateFavs(String currentUserID,String placeId ){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("favourites").document(currentUserID)
+                .update("favs", FieldValue.arrayUnion(placeId));
+    }
+
+    public static void addFirstTime(String currentUser,String placeId){
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        Map<String, ArrayList<String>> favs = new HashMap<>();
+        ArrayList<String> curfav = new ArrayList<String>();
+        curfav.add(placeId);
+        favs.put("favs", curfav);
+
+        db.collection("favourites")
+                .document(currentUser)
+                .set(favs);
+    }
+
+//
+    public static void addToFav(String currentUserID ,String placeId){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
-//        db.collection("favs").doc()
-//                .get()
-//                .then(function(doc) {
-//            if (doc.exists) {
-//                console.log("Document data:", doc.data());
-//            } else {
-//                // doc.data() will be undefined in this case
-//                console.log("No such document!");
+
+//
+//        DocumentReference docRef = db.collection("items").document("your_id");
+//        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(DocumentSnapshot snap, FirestoreException fe) {
+//                if (snap.exists()) {
+//                    //update
+//                } else {
+//                    //Insert
+//                }
 //            }
-//        }).catch(function(error) {
-//            console.log("Error getting document:", error);
-//        });
+//
+//        });;
+//
+//        if(!cur_doc){
+//            addFirstTime(currentUserID,placeId);
+//        }
+//        else{
+//            updateFavs(currentUserID,placeId);
+//        }
 
-        db.collection("favs")
-                .whereEqualTo("userId", currentUserID)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
 
-                            }
-                        }
 
-                    }
-                });
     }
+
 
 
 
