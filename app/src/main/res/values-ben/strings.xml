@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ঝাঁ ধন দর্শন</string>
+    <string name="google_map_key"> গুগল ম্যাপ কী</string>
+    <string name="atm">এটিএম </string>
+    <string name="nav_open"> নেভিগেশন খোলা</string>
+    <string name="nav_close">নেভিগেশন বন্ধ</string>
+    <string name="buffer">বাফার দূরত্ব</string>
+    <string name="language">ভাষা</string>
+    <string name="login_sidemenu">লগইন পি</string>
+    <string-array name="languagelist">
+        <item name="hindi">HINDI</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">MARATHI</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা টুকরা</string>
+    <string name="user_activity">ব্যবহারকারী কার্যকলাপ</string>
+    <string name="home">হোম </string>
+    <string name="home_sidemenu">হোম </string>
+    <string name="user_related_sidemenu">ব্যবহারকারী সম্পর্কিত</string>
+    <string name="feedback_sidemenu">প্রতিক্রিয়া</string>
+    <string name="missing_bank_suggestions_sidemenu">অনুপস্থিত ব্যাংক পরামর্শ</string>
+    <string name="disclaimer_and_help_sidemenu">দাবিত্যাগ এবং সাহায্য</string>
+    <string name="help_sidemenu">সাহায্য</string>
+    <string name="disclaimer_sidemenu">সাহায্য</string>
+    <string name="search_menu">অনুসন্ধান </string>
+    <string name="language_dialogbox">ভাষা</string>
+    <string name="settings_settings">সেটিংস  </string>
+    <string name="password">পাসওয়ার্ড পি </string>
+    <string name="email">ইমেইল </string>
+    <string name="filterByOpenNow">এখন খোলা</string>
+    <string name="toggleOff">এখন খুলুন</string>
+    <string name="toggleOn">খোলা এখন সক্রিয়</string>
+</resources>

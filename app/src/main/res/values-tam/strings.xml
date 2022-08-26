@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">பயன்பாட்டின் பெயர்</string>
+    <string name="app_name">ஜன் தன் தர்ஷக்</string>
     <string name="google_map_key"> பயன்பாட்டின் பெயர்</string>
-    <string name="atm">atm</string>
+    <string name="atm">ஏடிஎம் </string>
     <string name="nav_open"> வழிசெலுத்தல் திறந்திருக்கும்</string>
     <string name="nav_close">வழிசெலுத்தல் மூடியது</string>
-    <string name="buffer">Buffer Distance</string>
-    <string name="language">Language</string>
-
+    <string name="buffer">தாங்கல் தூரம்</string>
+    <string name="language">மொழி</string>
+    <string name="login_sidemenu">புகுபதிவு</string>
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
@@ -26,5 +26,9 @@
     <string name="search_menu">தேடல்</string>
     <string name="language_dialogbox">மொழி</string>
     <string name="settings_settings">அமைப்புகள்</string>
-
+    <string name="password">கடவுச்சொல் </string>
+    <string name="email">மின்னஞ்சல்</string>
+    <string name="filterByOpenNow">இப்போது திறக்கப்பட்டது</string>
+    <string name="toggleOff">இப்போது திற</string>
+    <string name="toggleOn">திறக்க இப்போது இயக்கப்பட்டது</string>
 </resources>

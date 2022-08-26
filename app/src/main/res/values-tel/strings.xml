@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">యాప్ పేరు</string>
+    <string name="app_name">ఝన్ ధన్ దర్శక్</string>
     <string name="google_map_key"> గూగుల్ మ్యాప్ కీ</string>
     <string name="atm">atm</string>
-    <string name="nav_open"> నావిగేషన్ తెరవబడింది</string>
-    <string name="nav_close">నావిగేషన్ దగ్గరగా</string>
-    <string name="buffer">Buffer Distance</string>
-    <string name="language">Language</string>
-
+    <string name="nav_open"> తెరవండి</string>
+    <string name="nav_close">మూయండి</string>
+    <string name="buffer">బఫర్ దూరం</string>
+    <string name="language">భాష </string>
+    <string name="login_sidemenu">లాగిన్</string>
     <string-array name="languagelist">
         <item name="hindi">HINDI</item>
         <item name="english">ENGLISH</item>
@@ -14,8 +14,8 @@
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">హలో ఖాళీ శకలం</string>
-    <string name="user_activity">User Activity</string>
-    <string name="home">Home</string>
+    <string name="user_activity">వినియోగదారు కార్యాచరణ</string>
+    <string name="home">హోమ్ </string>
     <string name="home_sidemenu">హోమ్</string>
     <string name="user_related_sidemenu">వినియోగదారు సంబంధిత</string>
     <string name="feedback_sidemenu">అభిప్రాయం</string>
@@ -26,5 +26,11 @@
     <string name="search_menu">శోధన</string>
     <string name="language_dialogbox">భాషలు</string>
     <string name="settings_settings">సెట్టింగులు</string>
+    <string name="password">పాస్వర్డ్ </string>
+    <string name="email">ఇమెయిల్ </string>
+    <string name="filterByOpenNow">ఇప్పుడు తెరవబడింది</string>
+    <string name="toggleOff">ఇప్పుడు తెరవండి</string>
+    <string name="toggleOn">తెరవండి ఇప్పుడు ప్రారంభించబడింది</string>
+
 
 </resources>

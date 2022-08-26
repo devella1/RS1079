@@ -62,7 +62,7 @@ public class mainActivityModel{
                 //istrue=false;
 
                 //parsedData[0] =false;
-               // System.out.println(t.message);
+                // System.out.println(t.message);
                 //Toast.makeText(MainActivity.this,"Error in onresponse in getData ",Toast.LENGTH_SHORT).show();
             }
         });
@@ -129,15 +129,15 @@ public class mainActivityModel{
                 map.put("isOpen", "unknown");
             }
 
-        latitude = placejson.getJSONObject("geometry").getJSONObject("location").getString("lat");
-        longitude = placejson.getJSONObject("geometry").getJSONObject("location").getString("lng");
-        reference = placejson.getString("place_id");
-        map.put("place_name", placename);
-        map.put("vicinity", vicinity);
-        map.put("lat", latitude);
-        map.put("lng", longitude);
-        map.put("place_id", reference);
-    }
+            latitude = placejson.getJSONObject("geometry").getJSONObject("location").getString("lat");
+            longitude = placejson.getJSONObject("geometry").getJSONObject("location").getString("lng");
+            reference = placejson.getString("place_id");
+            map.put("place_name", placename);
+            map.put("vicinity", vicinity);
+            map.put("lat", latitude);
+            map.put("lng", longitude);
+            map.put("place_id", reference);
+        }
         catch (JSONException e){
             e.printStackTrace();
             //Toast.makeText(mainActivityModel.this,"Error in getplace ",Toast.LENGTH_SHORT).show();
@@ -188,7 +188,7 @@ public class mainActivityModel{
         }
         catch (Exception e){
             e.printStackTrace();
-           // Toast.makeText(mainActivityModel.this,"Error in showMarker",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(mainActivityModel.this,"Error in showMarker",Toast.LENGTH_SHORT).show();
         }
 
         if(!list.isEmpty()){

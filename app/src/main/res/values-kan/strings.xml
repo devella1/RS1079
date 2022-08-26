@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ಜನ್ ಧನ್ ದರ್ಶಕ್</string>
+    <string name="google_map_key">AIzaSyB4sxrW5vvTZKQCebWquw8rKhyCYnSrlYM</string>
+
+    <string name="atm">ಎಟಿಎಂ</string>
+    <string name="nav_open">ತೆರೆಯಿರಿ</string>
+    <string name="nav_close">ಆರಿಸು</string>
+    <string name="login_sidemenu">ಲಾಗಿನ್ ಮಾಡಿ</string>
+    <string-array name="languagelist">
+        <item name="hindi">हिंदी</item>
+        <item name="english">ENGLISH</item>
+        <item name="marathi">मराठी</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">ಹಲೋ ಖಾಲಿ ತುಣುಕು</string>
+    <string name="user_activity">User Activity</string>
+    <string name="home">ಮುಖಪುಟ</string>
+    <string name="home_sidemenu">ಮುಖಪುಟ</string>
+    <string name="user_related_sidemenu">ವಾಪರಕರ್ತಾ ಸಂಬಂಧಿತ</string>
+    <string name="feedback_sidemenu">ನಿಮ್ಮ ಅನಿಸಿಕೆ</string>
+    <string name="missing_bank_suggestions_sidemenu">ಅಸಂಘಟಿತ ಬ್ಯಾಂಕ್‌ಗಳ ನೋಂದಣಿ</string>
+    <string name="disclaimer_and_help_sidemenu">ಹಕ್ಕು ನಿರಾಕರಣೆ ಮತ್ತು ಸಹಾಯ</string>
+    <string name="help_sidemenu">ಸಹಾಯ</string>
+    <string name="disclaimer_sidemenu">ಹಕ್ಕು ನಿರಾಕರಣೆ</string>
+    <string name="search_menu">ಹುಡುಕು</string>
+    <string name="language_dialogbox">ಭಾಷೆ</string>
+    <string name="settings_settings">ಸಂಯೋಜನೆಗಳು</string>
+
+    <string name="password">ಗುಪ್ತಪದ</string>
+    <string name="email">ಇಮೇಲ್</string>
+
+    <string name="buffer">ಬಫರ್ ದೂರ</string>
+    <string name="language">ಭಾಷೆ</string>
+
+    <string name="filterByOpenNow">आता उघडले</string>
+    <string name="toggleOff">ಈಗ ತೆರೆದಿದೆ</string>
+    <string name="toggleOn">ಅದು ಈಗ ತೆರೆದಿದೆ</string>
+</resources>
+
+<!--<string name="missing_bank_suggestions_sidemenu">Missing Bank Suggestions</string>-->
+<!--    <string name="disclaimer_and_help_sidemenu">Disclaimer and Help</string>-->
+<!--    <string name="help_sidemenu">Help</string>-->
+<!--    <string name="disclaimer_sidemenu">Disclaimer</string>-->
+<!--    <string name="search_menu">Search</string>-->
+<!--    <string name="language_dialogbox">Language</string>-->
+<!--    <string name="settings_settings">settings</string>-->
+
+<!--    <string name="password">Password</string>-->
+<!--    <string name="email">Email</string>-->
+
+<!--    <string name="buffer">Buffer Distance</string>-->
+<!--    <string name="language">Language</string>-->
+
+<!--    <string name="filterByOpenNow">Filter By Open Now</string>-->
+<!--    <string name="toggleOff">Open Now</string>-->
+<!--    <string name="toggleOn">Open Now Enabled</string>-->
+<!--</resources>-->
