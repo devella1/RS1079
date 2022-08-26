@@ -94,33 +94,12 @@ import java.util.Map;
 
 
 
-/*
-public class MapsActivityRaw extends AppCompatActivity
-implements OnMapReadyCallback {
-
-    private static final String TAG = MapsActivityRaw.class.getSimpleName();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // Retrieve the content view that renders the map.
-        setContentView(R.layout.fragment_map);
-
-        // Get the SupportMapFragment and register for the callback
-        // when the map is ready for use.
-        SupportMapFragment mapFragment =
-                (SupportMapFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.google_map);
-        mapFragment.getMapAsync(this);
-    }
-}
-*/
 
 public class mapFragment extends Fragment {
 
     FusedLocationProviderClient fusedLocationProviderClient;
     // public Dialog mProgressDialog;
-    ToggleButton toggleButton;
+    public static ToggleButton toggleButton;
     public static double currentLat = 0, currentLong = 0;
     private final int atm=1;
     private final int bank=2;
@@ -134,28 +113,39 @@ public class mapFragment extends Fragment {
     private EditText editText;
     private TextView tv1;
     private TextView tv2;
-    public static  List<place> placeList;
+    public static  List<place> placeList=new ArrayList<>();
     private mainActivityModel model;
     public static  mainActivityDataProvider provider=new mainActivityDataProvider();
     public static  LatLng currLocation;
     private String deviceLanguage;
     private MaterialButton showListButton;
-    //private Button showFirstButton;
+    private Button showFirstButton;
     private adapter listAdapter;
     private BottomSheetBehavior bottomSheetBehavior;
     private FloatingActionButton setting;
     private FloatingActionButton voiceSearch;
     private FloatingActionButton textSearch;
-    public static int BufferDistance=1000;
+    public static int BufferDistance=10000;
     public static String theme="STANDARD";
+    public static String language="en";
     private EditText editTextForSearch;
     private Button searchButton;
     dialogFragment a=new dialogFragment();
+    ArrayList<String> dbTypes = new ArrayList<String>() {
+        {
+            add("Atm");
+            add("Bank");
+            add("PostOffice");
+            add("Csc");
+            add("BankMitra");
+        }
+    };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Initialize view
         view=inflater.inflate(R.layout.fragment_map, container, false);
+
 
         //provider.setMap(map);
         deviceLanguage = Locale.getDefault().getLanguage();
@@ -176,6 +166,8 @@ public class mapFragment extends Fragment {
                 String[] arr=text.split(" ");
                 if(arr.length>=1 && arr[0]!="") {
                     placeList = provider.findPlacesAccordingToKeyword(currentLat, currentLong, BufferDistance, 8, arr[0], getResources().getString(R.string.google_map_key));
+                    provider.plot(currLocation,BufferDistance,arr[0]);
+
                     editTextForSearch.setVisibility(View.GONE);
                     searchButton.setVisibility(View.GONE);
                 }
@@ -213,14 +205,12 @@ public class mapFragment extends Fragment {
 
                 a.show(fragmentManager,"Dialog Box");
 
-               // FireStoreClass.addToFav("sitTozVwBzQ5NjLZYDGuFGnwQQD3","1236");
-
             }
         });
 
 
         showListButton= view.findViewById(R.id.showList);
-//        showFirstButton=view.findViewById(R.id.showfirstItem);
+        //showFirstButton=view.findViewById(R.id.showfirstItem);
 //        showFirstButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -261,6 +251,16 @@ public class mapFragment extends Fragment {
         toggleButton = view.findViewById(R.id.filterByOpenNow);
 
         // Return view
+
+        bn.setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
+            @Override
+            public void onReselectItem(MeowBottomNavigation.Model item) {
+
+            }
+        });
+
+
+
         bn.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
 
@@ -270,7 +270,6 @@ public class mapFragment extends Fragment {
                 String name;
                 switch(item.getId()){
                     case atm:
-
                         selected=atm;
                         toggleButton.setChecked(false);
                         changeState();
@@ -308,34 +307,17 @@ public class mapFragment extends Fragment {
 
                 }
 
-                ArrayList<String> dbTypes = new ArrayList<String>() {
-                    {
-                        add("Atm");
-                        add("Bank");
-                        add("PostOffice");
-                        add("Csc");
-                        add("BankMitra");
-                    }
-                };
+
 
                 provider.setMap(map);
-                provider.plot(currLocation,1000,dbTypes.get(selected-1));
-
-
-//
-//                for(int i=0; i<ds.size(); i++)
-//                {
-//
-//
-//                    Toast.makeText(getActivity(),ds.get(i).name, Toast.LENGTH_SHORT).show();
-//
-//                }
+                provider.plot(currLocation,BufferDistance,dbTypes.get(selected-1));
 
 
 
 
                 if(selected<=3) {
-                   provider.findPlacesAccordingToDistance(currentLat, currentLong,  BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
+
+                    provider.findPlacesAccordingToDistance(currentLat, currentLong,  BufferDistance, selected - 1, getResources().getString(R.string.google_map_key));
                     placeList=provider.getPlace();
                 }
                 else if(selected==4){
@@ -414,12 +396,8 @@ public class mapFragment extends Fragment {
                     if(provider==null || map==null){
                         provider.setMap(map);
                         placeList=provider.filterPlacesByOpenNow(currentLat,currentLong,BufferDistance,0,getResources().getString(R.string.google_map_key));
-                        //placeList=provider.getPlaceList();
                         changeState();
-
                         Toast.makeText(getActivity(),"Please select navbar before filter",Toast.LENGTH_SHORT).show();
-
-                        //hideProgressDialog();
                     }
                     else{
                         if(selected<=3) {
@@ -433,7 +411,6 @@ public class mapFragment extends Fragment {
                             provider.clearMap();
                         }
                         changeState();
-                        //hideProgressDialog();
                     }
 
 
@@ -441,7 +418,7 @@ public class mapFragment extends Fragment {
                 }
                 else{
                     if(selected<=3) {
-                         provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
+                        provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, selected - 1, getResources().getString(R.string.google_map_key));
                         placeList = provider.getPlaceList();
                     }
                     else if(selected==4){
@@ -452,46 +429,14 @@ public class mapFragment extends Fragment {
                         provider.clearMap();
                     }
                     changeState();
-                    //hideProgressDialog();
-
 
                 }
             }
         });
 
 
-
-//        provider.setMap(map);
-//        placeList=provider.findPlacesAccordingToDistance(currentLat, currentLong, 5000, 0, getResources().getString(R.string.google_map_key));
-
-
         return view;
     }
-
-/*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100 && resultCode== getActivity().RESULT_OK){
-            //Initialize place
-
-            Place place =Autocomplete.getPlaceFromIntent(data);
-
-            editText.setText(place.getAddress());
-            String pid= place.getId();
-            tv1.setText(String.format("Locality Name: %s\n Phone Number: %s\nPlace ID: %s\n Ratings: %s\n User ratings total %s\n\n  Opening hours %s\n",place.getName(), place.getPhoneNumber(), pid, place.getRating(),  place.getUserRatingsTotal(), place.getOpeningHours()));
-            tv2.setText(String.valueOf(place.getLatLng()));
-        }
-        else if(resultCode == AutocompleteActivity.RESULT_ERROR){
-            Status status= Autocomplete.getStatusFromIntent(data);
-            Toast.makeText(getActivity().getApplicationContext(), status.getStatusMessage(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
- */
-    // ------ edit text code ends over here okay
-
 
 
     private void getCurrentLocation() {
@@ -604,7 +549,6 @@ public class mapFragment extends Fragment {
             Toast.makeText(getActivity(),"no list present ",Toast.LENGTH_SHORT).show();
         }
 
-
     }
 
 
@@ -628,16 +572,10 @@ public class mapFragment extends Fragment {
             ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
             String match=matches.get(0);
             placeList= provider.findPlacesAccordingToKeyword(currentLat,currentLong,BufferDistance,8,match,getResources().getString(R.string.google_map_key));
+            provider.plot(currLocation,BufferDistance,match);
 
         }
     }
-
-
-
-
-
-
-
 
 
 }

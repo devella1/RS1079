@@ -4,9 +4,9 @@ import static java.lang.Math.cos;
 import static java.lang.Math.toRadians;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -14,8 +14,6 @@ import com.example.nearby_feature.JsonParser;
 import com.example.nearby_feature.R;
 import com.example.nearby_feature.activities.BaseActivity;
 import com.example.nearby_feature.activities.MainActivity;
-import com.example.nearby_feature.activities.splashScreen;
-import com.example.nearby_feature.firebase.FireStoreClass;
 import com.example.nearby_feature.newPlace;
 import com.example.nearby_feature.place;
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,7 +27,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.libraries.places.api.model.Place;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -46,9 +43,31 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class mainActivityDataProvider  {
+
+    ArrayList<String> dbTypes = new ArrayList<String>() {
+        {
+            add("atm");
+            add("bank");
+            add("postoffice");
+            add("csc");
+            add("bankmitra");
+        }
+    };
+
+    ArrayList<String> dbTypes1 = new ArrayList<String>() {
+        {
+            add("Atm");
+            add("Bank");
+            add("PostOffice");
+            add("Csc");
+            add("BankMitra");
+        }
+    };
+
 
     public final static double AVERAGE_RADIUS_OF_EARTH_KM = 6371;
 
@@ -58,7 +77,7 @@ public class mainActivityDataProvider  {
     private String placeTypeList[] = {"atm", "bank", "post_office"};
     private int selected;
     private int radius ;
-    private List<place> placeList;
+    private List<place> placeList=new ArrayList<>();
 
 
 
@@ -66,12 +85,9 @@ public class mainActivityDataProvider  {
         return placeList;
     }
 
+
     public void clearMap(){
-
-
-            map.clear();
-
-
+        map.clear();
     }
 
     public List<place> getPlaceList(){
@@ -86,21 +102,13 @@ public class mainActivityDataProvider  {
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json" + "?location=" + currentLat + "," + currentLong + "&radius="+radius+"&types=" + placeTypeList[type]+ "&sensor=true" + "&key=" + key;
         this.currentLat=currentLat;
         this.currentLong=currentLong;
+
+
         this.selected=type+1;
         this.radius=radius;
-        Log.d("MEO", "before");
         new PlaceTask().execute(url);
-        Log.d("MEO", "after");
-        if(placeList==null){
-            Log.d("MEO", "oops null");
-        }
-        else{
-            Log.d("MEO", String.valueOf(placeList.size()));
-        }
-
 
         return placeList;
-
     }
 
     public List<place> filterPlacesByOpenNow(double currentLat , double currentLong , int radius , int type , String key){
@@ -110,17 +118,7 @@ public class mainActivityDataProvider  {
         this.currentLong=currentLong;
         this.selected=type+1;
         this.radius=radius;
-        Log.d("MEO", "before");
-
         new PlaceTask().execute(url);
-        Log.d("MEO", "after");
-        if(placeList==null){
-            Log.d("MEO", "oops null");
-        }
-        else{
-            Log.d("MEO", String.valueOf(placeList.size()));
-        }
-
         return placeList;
     }
 
@@ -182,7 +180,7 @@ public class mainActivityDataProvider  {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            placeList=mapList;
+            //placeList=mapList;
             return mapList;
         }
 
@@ -192,77 +190,89 @@ public class mainActivityDataProvider  {
 
         protected void onPostExecute(List<place> arr) {
 
-            map.clear();
+            //map.clear();
             StringBuilder st=new StringBuilder();
             ArrayList<MarkerOptions> markers =new ArrayList<>();
             //TextView t=view.findViewById(R.id.distances);
-            placeList=arr;
-            for(int i=0; i<arr.size(); i++)
-            {
-                place p= arr.get(i);
-                double lat= Double.parseDouble(p.getLat());
-                double lng= Double.parseDouble(p.getLang());
-
-
-                String name= p.getName();
-                // st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
-                LatLng latLng= new LatLng(lat, lng);
-                MarkerOptions options= new MarkerOptions();
-                options.position(latLng);
-                options.title(name);
-
-
-                if(selected==1)
+            if(arr!=null) {
+                placeList = arr;
+                for(int i=0; i<arr.size(); i++)
                 {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
-                }
-                else if(selected==2)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
-                }
-                else if(selected==3)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
-                }
-                else if(selected==4)
-                {
-                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    place p= arr.get(i);
+                    double lat= Double.parseDouble(p.getLat());
+                    double lng= Double.parseDouble(p.getLang());
+
+
+                    String name= p.getName();
+                    // st.append(name+":"+calculateDistanceInKilometer(currentLat,currentLong,lat,lng)+"km\n");
+                    LatLng latLng= new LatLng(lat, lng);
+                    MarkerOptions options= new MarkerOptions();
+                    options.position(latLng);
+                    options.title(name);
+
+
+                    if(selected==1)
+                    {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                    }
+                    else if(selected==2)
+                    {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                    }
+                    else if(selected==3)
+                    {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE));
+                    }
+                    else if(selected==4)
+                    {
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                    }
+                    else if(selected==8){
+                        options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
+                    }
+
+                    map.addMarker(options);
+                    markers.add(options);
+
                 }
 
-                map.addMarker(options);
-                markers.add(options);
 
+                if(markers!=null) {
+                    LatLng latLng = new LatLng(currentLat, currentLong);
+
+                    MarkerOptions options = new MarkerOptions();
+                    options.position(latLng);
+                    options.title("Current Position");
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
+                    map.addMarker(options);
+
+                    //setting bounds to automate zoom level for presenting all markers on visible screen
+
+                    LatLngBounds.Builder builder = new LatLngBounds.Builder();
+
+                    boolean isMarked=false;
+                    for (MarkerOptions marker : markers) {
+                        builder.include(marker.getPosition());
+                        isMarked=true;
+                    }
+                    LatLng currLocation = new LatLng(currentLat, currentLong);
+
+                    if(isMarked) {
+                        LatLngBounds bounds = builder.build();
+
+                        int padding = 16;
+//
+//
+
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                        map.animateCamera(cu);
+                    }
+                    CircleOptions circly = new CircleOptions().center(currLocation).radius(radius).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
+                    Circle circle = map.addCircle(circly);
+
+                }
             }
 
-            LatLng latLng= new LatLng(currentLat, currentLong);
-
-            MarkerOptions options= new MarkerOptions();
-            options.position(latLng);
-            options.title("Current Position");
-            options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
-            map.addMarker(options);
-
-            //setting bounds to automate zoom level for presenting all markers on visible screen
-
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
-            for (MarkerOptions marker : markers) {
-                builder.include(marker.getPosition());
-            }
-            LatLngBounds bounds = builder.build();
-
-            int padding=16;
-
-
-
-
-            LatLng currLocation=new LatLng(currentLat,currentLong);
-            CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
-            map.animateCamera(cu);
-//            map.animateCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
-            CircleOptions circly = new CircleOptions().center(currLocation).radius(radius).fillColor(R.color.purple_700).strokeWidth(0).strokeColor(R.color.purple_700); // in meters
-            Circle circle=map.addCircle(circly);
-
-            //obj.hideProgressDialog();
         }
     }
 
@@ -330,6 +340,18 @@ public class mainActivityDataProvider  {
         List<Double> latLonRange = new ArrayList<Double>();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        String tolow=type.toLowerCase();
+
+        String keyword="";
+        for(int i=0;i< dbTypes.size();i++){
+            if(tolow.startsWith(dbTypes.get(i))){
+                keyword=dbTypes1.get(i);
+                break;
+            }
+        }
+        if(keyword.equals("")){
+            return;
+        }
         latLonRange = Range(curLocation.longitude,curLocation.latitude,buffer);
 
         Log.d("TA", String.valueOf(curLocation.latitude));
@@ -346,7 +368,7 @@ public class mainActivityDataProvider  {
         Query capitalCities = db.collection("cities").whereEqualTo("capital", true);
 
         List<Double> finalLatLonRange = latLonRange;
-        db.collection(type)
+        db.collection(keyword)
                 .whereGreaterThanOrEqualTo("lat", String.valueOf(latLonRange.get(0)))
                 .whereLessThanOrEqualTo("lat",String.valueOf(latLonRange.get(1)))
                 .get()
@@ -396,25 +418,10 @@ public class mainActivityDataProvider  {
                                 LatLng latLng= new LatLng(lat, lng);
                                 MarkerOptions options= new MarkerOptions();
                                 options.position(latLng);
+                                Pname+=" (database)";
                                 options.title(Pname);
 
-
-                                if(selected==1)
-                                {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                }
-                                else if(selected==2)
-                                {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                }
-                                else if(selected==3)
-                                {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                }
-                                else if(selected==4)
-                                {
-                                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                                }
+                                options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET));
 
                                 map.addMarker(options);
 
