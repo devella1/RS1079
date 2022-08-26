@@ -16,7 +16,13 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import java.util.Locale;
+import android.os.Bundle;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.util.DisplayMetrics;
 import com.example.nearby_feature.R;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
@@ -29,6 +35,7 @@ public class dialogFragment extends DialogFragment {
     TextView bufferText;
     int bufferDistance=10;
     Spinner spinner;
+    Spinner spinnerForLanguages ;
 
 
 
@@ -49,6 +56,7 @@ public class dialogFragment extends DialogFragment {
         bufferText=v.findViewById(R.id.buffervalue);
 
         bufferText.setText(seekbar.getProgress()+"/"+seekbar.getMax());
+        spinnerForLanguages=v.findViewById(R.id.Spinner);
 
 
 
@@ -118,6 +126,19 @@ public class dialogFragment extends DialogFragment {
         });
 
 
+        spinnerForLanguages.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
 
 
 
@@ -125,4 +146,7 @@ public class dialogFragment extends DialogFragment {
 
 
     }
+
+
+
 }

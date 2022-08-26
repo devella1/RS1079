@@ -1,6 +1,8 @@
 package com.example.nearby_feature;
 
-public class place {
+import java.io.Serializable;
+
+public class place implements Serializable {
     private String name;
     private String lat;
     private String lang;

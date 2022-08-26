@@ -25,7 +25,7 @@
         android:orientation="vertical"
         android:background="@color/forestgreen">
         <TextView
-            android:id="@+id/placeName"
+            android:id="@+id/placeName1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="PNB ATM"
@@ -36,7 +36,7 @@
             android:textColor="@color/white"/>
 
         <TextView
-            android:id="@+id/placeAddress"
+            android:id="@+id/placeAddress1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Jatpura makimpur Road, Bulandshahr"
@@ -51,7 +51,7 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/placeCall"
+        android:id="@+id/placeCall1"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="#fff"
@@ -60,7 +60,7 @@
         android:src="@drawable/place_call"/>
 
     <ImageButton
-        android:id="@+id/placeDirections"
+        android:id="@+id/placeDirections1"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@color/forestgreen"

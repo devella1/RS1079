@@ -100,23 +100,6 @@ public class SignupActivity extends BaseActivity {
     private void registerNewUser(PhoneAuthCredential credential) {
        // progressBar.setVisibility(View.VISIBLE);
 
-        EditText et_email = findViewById(R.id.et_email);
-        String email = et_email.getText().toString();
-
-
-
-        EditText et_password = findViewById(R.id.et_password);
-        String password = et_password.getText().toString();
-
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
-            return;
-        }
-
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -125,8 +108,10 @@ public class SignupActivity extends BaseActivity {
                             // if the code is correct and the task is successful
                             // we are sending our user to new activity.
 
-                            addToDataBase();
-
+                            Intent intent = new Intent(SignupActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            Toast.makeText(SignupActivity.this, "Welcome", Toast.LENGTH_LONG).show();
+                            finish();
                         } else {
                             // if the code is not correct then we are
                             // displaying an error message to the user.
@@ -136,33 +121,6 @@ public class SignupActivity extends BaseActivity {
                 });
     }
 
-    private void addToDataBase(){
-        EditText et_email = findViewById(R.id.et_email);
-        String email = et_email.getText().toString();
-
-
-
-        EditText et_password = findViewById(R.id.et_password);
-        String password = et_password.getText().toString();
-
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Registration successful!", Toast.LENGTH_LONG).show();
-                           // progressBar.setVisibility(View.GONE);
-
-                            Intent intent = new Intent(SignupActivity.this,SigninActivity.class);
-                            startActivity(intent);
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Registration failed! Please try again later", Toast.LENGTH_LONG).show();
-                           // progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
-    }
 
 
     private void signInWithCredential(PhoneAuthCredential credential) {
@@ -170,8 +128,6 @@ public class SignupActivity extends BaseActivity {
         // the code entered is correct or not.
 
     }
-
-
 
 
     private void sendVerificationCode(String number) {
@@ -189,24 +145,17 @@ public class SignupActivity extends BaseActivity {
 
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
-            // initializing our callbacks for on
-            // verification callback method.
+
             mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
-        // below method is used when
-        // OTP is sent from Firebase
+
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
-            // when we receive the OTP it
-            // contains a unique id which
-            // we are storing in our string
-            // which we have already created.
             verificationId = s;
         }
 
-        // this method is called when user
-        // receive OTP from Firebase.
+
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
             // below line is used for getting OTP code

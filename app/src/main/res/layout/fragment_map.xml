@@ -14,13 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/distances"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        />
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -40,6 +34,32 @@
             />
     </androidx.cardview.widget.CardView>
 
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp"
+        app:layout_anchor="@+id/cardView"
+        app:layout_anchorGravity="start">
+
+        <Spinner
+            android:id="@+id/filterByBanks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:entries="@array/banklist"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/filterByBanks"
+            app:layout_anchor="@id/filterByOpenNow"
+
+            app:layout_anchorGravity="right"
+
+            />
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

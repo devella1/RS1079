@@ -70,8 +70,8 @@
 
 
     <RadioGroup
-        android:layout_width="310dp"
-        android:layout_height="152dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/radioButtonAtm"
