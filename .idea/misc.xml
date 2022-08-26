@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_auth.xml" value="0.16145833333333334" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_buff.xml" value="0.16145833333333334" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_det.xml" value="0.16041666666666668" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_list.xml" value="0.13162393162393163" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_nav.xml" value="0.16041666666666668" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/act_shar.xml" value="0.16145833333333334" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/activity_help.xml" value="0.176" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/activity_pointers.xml" value="0.24895833333333334" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/activity_theme.xml" value="0.25" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/activity_voice.xml" value="0.25" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/layout/red.xml" value="0.25" />
+        <entry key="..\:/updated/RS1079/app/src/main/res/menu/sidemenu.xml" value="0.25" />
         <entry key="app/src/main/res/drawable-v24/directions.xml" value="0.126" />
         <entry key="app/src/main/res/drawable-v24/directionshape.xml" value="0.126" />
         <entry key="app/src/main/res/drawable-v24/get_location.xml" value="0.126" />

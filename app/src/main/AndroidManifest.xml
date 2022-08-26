@@ -16,11 +16,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nearby_feature">
         <activity
+            android:name=".activities.help"
+            android:exported="true" />
+        <activity
             android:name=".detailActivity"
             android:exported="true" />
         <activity
             android:name=".activities.MapMissingBank"
-            android:exported="true"></activity>
+            android:exported="true" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -45,7 +48,7 @@
             android:name=".activities.SigninActivity"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".activities.BaseActivity"
             android:exported="true" />
@@ -65,16 +68,13 @@
 
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="locale|orientation"
             android:exported="true"
-            android:screenOrientation="portrait"
-            android:configChanges="locale|orientation">
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.splashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
