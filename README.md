@@ -1,5 +1,22 @@
 # Upgradation of Jan Dhan Darshak App
 
+## Our Team
+<p>
+    <img src="Images/t1.jpeg" width="245">&emsp;
+  <img src="Images/t2.jpeg" width="245">&emsp;
+    <img src="Images/t3.jpeg" width="245">&emsp;
+</p>
+<br>
+**Team Members**  
+Devansh Verma           (CS20B009)  
+Saranya Kancharla       (CS20B016)  
+Ganesh Priyatham        (CS20B026)  
+Swami Ramchandra Kedari (CS20B048)  
+Sidhant Hanwate         (CS20b016)  
+Pranav Sutar            (CS20B029)  
+
+
+
 ## Future that we seek
 
 **Personalization**  
