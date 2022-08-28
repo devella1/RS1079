@@ -22,6 +22,7 @@ One can access, display and perform operations on entries from their custom data
 ## Salient features and use cases
 
 <p>
+    <img src="Images/splash_screen.jpeg" width="245">&emsp;
     <img src="Images/main_activity.jpeg" width="245">&emsp;
   <img src="Images/nav_bar.jpeg" width="245">&emsp;
 </p>
@@ -52,6 +53,8 @@ Any registered user can simply login using mobile number and a 6-digit numeric O
 
 <p>
     <img src="Images/user_auth.jpeg" width="245">&emsp;
+    <p><b>Generated OTP message</b></p>
+    <img src="Images/otp.jpeg" width="245">&emsp;
 </p>
 <br>
 
@@ -66,10 +69,11 @@ Find our implementation in the distance_filter.inpynb file added. One can create
 </p>
 <br>
 
-**5) Various Map themes**  
+**5) Various Map themes and help feature**  
 Aubergine, Dark, Standard, Retro , Silver, we have it all. Select and use app in map theme.  
 <p>
-    <img src="Images/themes.jpeg" width="245">&emsp;
+    <img src="Images/theme.jpeg" width="245">&emsp;
+    <img src="Images/Help.jpeg" width="245">&emsp;
 </p>
 <br>
 
