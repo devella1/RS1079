@@ -53,7 +53,7 @@ Any registered user can simply login using mobile number and a 6-digit numeric O
 
 <p>
     <img src="Images/user_auth.jpeg" width="245">&emsp;
-    <p><b>Generated OTP message</b></p>
+    <b>Generated OTP message</b>
     <img src="Images/otp.jpeg" width="245">&emsp;
 </p>
 <br>
