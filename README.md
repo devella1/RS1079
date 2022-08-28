@@ -7,7 +7,8 @@
     <img src="Images/t3.jpg" width="245">&emsp;
 </p>
 <br>
-**Team Members**
+
+**Team Members** 
 
 - Devansh Verma           (CS20B009)  
 - Saranya Kancharla       (CS20B016)  
