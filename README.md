@@ -21,6 +21,7 @@ App is mainly focused on displaying info of your nearby financial touch points l
 - Navigate to selected location
 - Share location to anyone
 
+
 **2) Contribute**  
 Wish to help improve the map? Use our missing location suggestions feature. Simply tap at that area on the map and fill out the form for developers to get precise details.
 
