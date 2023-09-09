@@ -17,7 +17,7 @@
 - Sidhant Hanwate         (CS20b041)
 - Swami Ramchandra Kedari (CS20B048)    
   
-
+Link to the PPT: [BankMitra_RS1079_APP_PPT](https://docs.google.com/presentation/d/1uJgolhnu4V9Cf6KF92jN5Vuutspmrta3JNznDLJgWpk/edit#slide=id.g7cc520569a_0_31)
 
 ## Future that we seek
 
