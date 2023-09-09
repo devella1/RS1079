@@ -18,6 +18,7 @@
 - Swami Ramchandra Kedari (CS20B048)    
   
 
+Link to the PPT: [Updated_JDD_RS1079_APP_PPT](https://docs.google.com/presentation/d/1r65TxetuW4dOaLd99nQet6j_Cat_V2-1SyPIEkSNuRA/edit#slide=id.g25430e6bdd_5_9)
 
 ## Future that we seek
 
